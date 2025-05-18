@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Forest App</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="tree_oak">Oak</string>
+    <string name="timer">Timer</string>
+    <string name="forest">Forest</string>
+    <string name="profile">Profile</string>
+</resources>

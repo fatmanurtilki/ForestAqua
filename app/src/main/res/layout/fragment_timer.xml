@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gereken_mavi"
+    android:padding="16dp">
+
+    <!-- Coin Bilgisi (Sağ Üst Köşe) -->
+    <LinearLayout
+        android:id="@+id/coinContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/ivCoin"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/coin_icon"
+            android:layout_marginEnd="4dp"/>
+
+        <TextView
+            android:id="@+id/tvCoins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coins: 0"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <!-- ivTree'nin üstüne bu FrameLayout'ı ekleyin -->
+    <FrameLayout
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp">
+
+        <!-- Fanus görseli -->
+        <ImageView
+            android:id="@+id/ivJar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/glass_jar"
+            android:scaleType="fitCenter"/>
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/ivTree"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/palyaco_balik"/>
+
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivTree"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="25:00"
+        android:textSize="48sp"/>
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTimer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/start"/>
+
+    <!-- android:backgroundTint="@color/gereken_mavi"-->
+    <!-- android:textColor="@color/black" -->
+    <TextView
+        android:id="@+id/tvMotivasyon"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="24dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnStart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:text='"Her yeni gün yeni bir başlangıçtır. Hayallerine bir adım daha yaklaşmak için bugünü kullan"'
+        android:textColor="#5D4037"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:fontFamily="sans-serif-light"
+        android:padding="16dp"/>
+
+    <Button
+        android:id="@+id/btnTreeType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="Balik"/>
+
+</RelativeLayout>

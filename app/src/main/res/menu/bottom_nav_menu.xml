@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_timer"
+        android:icon="@drawable/bos_akvaryum_icon"
+        android:title="@string/timer"/>
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/user_icon"
+        android:title="@string/profile"/>
+    <!--ForestFragment aslinda menu fragment -->
+    <item
+        android:id="@+id/nav_forest"
+        android:icon="@drawable/icon_menu"
+        android:title="Menu"/>
+</menu>
