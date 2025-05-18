@@ -18,6 +18,8 @@ class ForestDbHelper(context: Context) : SQLiteOpenHelper(
             CREATE TABLE ${DatabaseContract.UserTable.TABLE_NAME} (
                 ${DatabaseContract.UserTable.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
                 ${DatabaseContract.UserTable.COLUMN_NAME} TEXT,
+                ${DatabaseContract.UserTable.COLUMN_USERNAME} TEXT UNIQUE,
+                ${DatabaseContract.UserTable.COLUMN_EMAIL} TEXT UNIQUE,
                 ${DatabaseContract.UserTable.COLUMN_COINS} INTEGER,
                 ${DatabaseContract.UserTable.COLUMN_TOTAL_FOCUS_TIME} INTEGER,
                 ${DatabaseContract.UserTable.COLUMN_TREES_PLANTED} INTEGER,
