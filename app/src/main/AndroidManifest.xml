@@ -24,5 +24,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".RozetActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ShopActivity"
+            android:exported="true" />
+
     </application>
 </manifest>

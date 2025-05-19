@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import kotlin.String
 
 class UserRepository(context: Context) {
     private val dbHelper = ForestDbHelper(context)
@@ -31,8 +32,7 @@ class UserRepository(context: Context) {
             name = "Forest User",
             coins = 0,
             totalFocusTime = 0,
-            treesPlanted = 0,
-            realTreesPlanted = 0
+            treesPlanted = 0
         )
         return insertUser(db, user)
     }
@@ -56,7 +56,6 @@ class UserRepository(context: Context) {
             put(DatabaseContract.UserTable.COLUMN_COINS, user.coins)
             put(DatabaseContract.UserTable.COLUMN_TOTAL_FOCUS_TIME, user.totalFocusTime)
             put(DatabaseContract.UserTable.COLUMN_TREES_PLANTED, user.treesPlanted)
-            put(DatabaseContract.UserTable.COLUMN_REAL_TREES_PLANTED, user.realTreesPlanted)
             put(DatabaseContract.UserTable.COLUMN_DAILY_GOAL, user.dailyGoal)
         }
         return db.insert(DatabaseContract.UserTable.TABLE_NAME, null, values)
@@ -69,7 +68,6 @@ class UserRepository(context: Context) {
             coins = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_COINS)),
             totalFocusTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_TOTAL_FOCUS_TIME)),
             treesPlanted = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_TREES_PLANTED)),
-            realTreesPlanted = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_REAL_TREES_PLANTED)),
             dailyGoal = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_DAILY_GOAL))
         )
     }

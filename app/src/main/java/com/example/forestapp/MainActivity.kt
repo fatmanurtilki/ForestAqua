@@ -8,6 +8,8 @@ import ui.fragments.ForestFragment
 import ui.fragments.ProfileFragment
 import ui.fragments.TimerFragment
 
+import com.example.forestapp.UserRepository
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var userRepository: UserRepository
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_timer -> loadFragment(TimerFragment())
+                R.id.nav_forest -> loadFragment(ForestFragment())
                 else -> false
             }
         }
