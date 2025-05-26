@@ -6,36 +6,33 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.forestapp.R
-import com.example.forestapp.Session
-import com.example.forestapp.SessionRepository
-import com.example.forestapp.TreeType
-import com.example.forestapp.UserRepository
-import com.example.forestapp.databinding.FragmentTimerBinding
-import java.util.Date
 import android.animation.ValueAnimator
 import android.view.animation.LinearInterpolator
+import androidx.fragment.app.Fragment
+import com.example.forestapp.*
+import com.example.forestapp.databinding.FragmentTimerBinding
+import com.example.forestapp.util.SharedPreferencesUtils
+import java.util.*
 
 class TimerFragment : Fragment() {
+
     private var _binding: FragmentTimerBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var userRepository: UserRepository
     private lateinit var sessionRepository: SessionRepository
 
     private var timer: CountDownTimer? = null
     private var isTimerRunning = false
-    private var timeLeftInMillis: Long = 1 * 60 * 1000 // 25 dakika
+    private var timeLeftInMillis: Long = 25 * 60 * 1000 // 25 dakika
     private var currentTreeType = TreeType.PALYACO
 
     private lateinit var floatAnimator: ValueAnimator
-    private val FLOAT_AMPLITUDE = 15f // Yükselme miktarı (dp)
-    private val FLOAT_DURATION = 4000L // Bir döngü süresi
+    private val FLOAT_AMPLITUDE = 15f
+    private val FLOAT_DURATION = 4000L
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTimerBinding.inflate(inflater, container, false)
         return binding.root
@@ -50,21 +47,15 @@ class TimerFragment : Fragment() {
         setupUI()
         updateUserInfo()
         updateTreeSelectionUI()
-
-        // Fanus görselini ayarla
         binding.ivJar.setImageResource(R.drawable.glass_jar)
-
-        // Animasyonu başlat
         startFloatingAnimation()
     }
 
     private fun setupUI() {
         updateTimerText()
-
         binding.btnStart.setOnClickListener {
             if (isTimerRunning) pauseTimer() else startTimer()
         }
-
         binding.btnTreeType.setOnClickListener {
             showTreeSelectionDialog()
         }
@@ -88,38 +79,25 @@ class TimerFragment : Fragment() {
     }
 
     private fun onTimerComplete() {
-        // Session kaydet
+        val userId = SharedPreferencesUtils.getUserId(requireContext())
+
         val session = Session(
-            duration = (timeLeftInMillis / 1000).toInt(),
+            duration = (25 * 60),
             treeType = currentTreeType,
             date = Date(),
-            successful = true
+            successful = true,
+            userId = userId
         )
         sessionRepository.insertSession(session)
-
-        // Kullanıcıya jeton ekle
         userRepository.addCoins(TreeType.getCoinValue(currentTreeType))
-
-        // UI güncelle
-        binding.ivTree.setImageResource(getTreeImage(true))
         updateUserInfo()
+        binding.ivTree.setImageResource(getTreeImage(true))
         resetTimer()
-
         growTree()
     }
 
     private fun getTreeImage(isAdult: Boolean): Int {
-        return when (currentTreeType) {
-            TreeType.ASTRONOT -> if (isAdult) R.drawable.astronot_balik else R.drawable.astronot_balik
-            TreeType.PALYACO -> if (isAdult) R.drawable.palyaco_balik else R.drawable.palyaco_balik
-            TreeType.DISKUS -> if (isAdult) R.drawable.diskus_balik else R.drawable.diskus_balik
-            TreeType.JAPON -> if (isAdult) R.drawable.japon_balik else R.drawable.japon_balik
-            TreeType.MOLI -> if (isAdult) R.drawable.moli_balik else R.drawable.moli_balik
-            TreeType.MELEK -> if (isAdult) R.drawable.melek_balik else R.drawable.melek_balik
-            TreeType.BETA -> if (isAdult) R.drawable.beta_balik else R.drawable.beta_balik
-            TreeType.PAPAGAN -> if (isAdult) R.drawable.papagan_balik else R.drawable.papagan_balik
-            else -> R.drawable.papagan_balik
-        }
+        return TreeType.treeDrawables[currentTreeType] ?: R.drawable.palyaco_balik
     }
 
     private fun updateTimerText() {
@@ -137,21 +115,6 @@ class TimerFragment : Fragment() {
 
     private fun updateTreeSelectionUI() {
         binding.btnTreeType.text = currentTreeType
-
-    }
-
-    private fun getTreeIcon(treeType: String): Int {
-        return when (treeType) {
-            TreeType.ASTRONOT -> R.drawable.astronot_balik
-            TreeType.PALYACO -> R.drawable.palyaco_balik
-            TreeType.DISKUS -> R.drawable.diskus_balik
-            TreeType.JAPON -> R.drawable.japon_balik
-            TreeType.MOLI -> R.drawable.moli_balik
-            TreeType.MELEK-> R.drawable.melek_balik
-            TreeType.BETA -> R.drawable.beta_balik
-            TreeType.PAPAGAN -> R.drawable.papagan_balik
-            else -> R.drawable.palyaco_balik
-        }
     }
 
     private fun startFloatingAnimation() {
@@ -164,11 +127,7 @@ class TimerFragment : Fragment() {
             addUpdateListener { animation ->
                 val value = animation.animatedValue as Float
                 binding.ivTree.translationY = value
-
-                // Hafif yatay salınım (isteğe bağlı)
                 binding.ivTree.translationX = value * 0.9f
-
-                // Hafif dönme efekti (isteğe bağlı)
                 binding.ivTree.rotation = value * 0.5f
             }
         }
@@ -181,7 +140,6 @@ class TimerFragment : Fragment() {
         binding.btnStart.text = getString(R.string.start)
         floatAnimator.pause()
     }
-
 
     private fun growTree() {
         ValueAnimator.ofFloat(1f, 1.3f).apply {
@@ -204,19 +162,19 @@ class TimerFragment : Fragment() {
 
     private fun showTreeSelectionDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Select Fish Type")
+            .setTitle("Balık Seç")
             .setItems(TreeType.getAllTypes().toTypedArray()) { _, which ->
                 currentTreeType = TreeType.getAllTypes()[which]
                 updateTreeSelectionUI()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton("İptal", null)
             .show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         timer?.cancel()
-        _binding = null
         floatAnimator.cancel()
+        _binding = null
     }
 }

@@ -16,7 +16,6 @@
             android:layout_height="120dp"
             android:layout_marginBottom="24dp"
             android:src="@drawable/icon_user" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +38,6 @@
                 android:background="@android:drawable/editbox_background"
                 android:padding="10dp" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,7 +83,6 @@
                 android:background="@android:drawable/editbox_background"
                 android:padding="10dp" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,34 +106,36 @@
                 android:background="@android:drawable/editbox_background"
                 android:padding="10dp" />
         </LinearLayout>
-
-
         <LinearLayout
-            android:id="@+id/btnRegisterLayout"
-            android:layout_width="128dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Sign In"
-            android:clickable="true"
-            android:focusable="true"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:gravity="center">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/icon_fish" />
 
-            <TextView
-                android:layout_width="63dp"
-                android:layout_height="30dp"
-                android:text="Sign Up"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
+            <LinearLayout
+                android:id="@+id/btnRegisterLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp">
 
-                />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/icon_fish" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kayıt Ol"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
