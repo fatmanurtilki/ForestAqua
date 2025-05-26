@@ -1,10 +1,10 @@
 package com.example.forestapp
-// mail-kullanıcı adı olarak farklılıkta düzenleme yapman lazım.
+
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.forestapp.util.SharedPreferencesUtils
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,36 +28,37 @@ class LoginActivity : AppCompatActivity() {
         val btnSignIn = findViewById<LinearLayout>(R.id.btnSignIn)
         val btnSignUp = findViewById<LinearLayout>(R.id.btnSignUp)
 
-        val radioGroup = findViewById<RadioGroup>(R.id.rgLoginType)
-
-        radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.rbEmail -> etIdentifier.hint = "Email"
-                R.id.rbUsername -> etIdentifier.hint = "Kullanıcı Adı"
-            }
+        findViewById<RadioGroup>(R.id.rgLoginType).setOnCheckedChangeListener { _, checkedId ->
+            etIdentifier.hint = if (checkedId == R.id.rbEmail) "Email" else "Kullanıcı Adı"
         }
 
         btnSignIn.setOnClickListener {
             val identifier = etIdentifier.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
-            if (identifier.isNotEmpty() && password.isNotEmpty()) {
-                val db = dbHelper.readableDatabase
-                val column = if (rbEmail.isChecked) "email" else "username"
-                val query = "SELECT * FROM users WHERE $column = ? AND password = ?"
-                val cursor = db.rawQuery(query, arrayOf(identifier, password))
-
-                if (cursor.moveToFirst()) {
-                    cursor.close()
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                } else {
-                    cursor.close()
-                    Toast.makeText(this, "Bilgiler hatalı", Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                Toast.makeText(this, "Tüm alanları doldurun", Toast.LENGTH_SHORT).show()
+            if (identifier.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Lütfen tüm alanları doldurun", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            val column = if (rbEmail.isChecked) "email" else "username"
+            val db = dbHelper.readableDatabase
+            val cursor = db.rawQuery(
+                "SELECT * FROM users WHERE $column = ? AND password = ?",
+                arrayOf(identifier, password)
+            )
+
+            if (cursor.moveToFirst()) {
+                val userId = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                SharedPreferencesUtils.setLoggedIn(this, true)
+                SharedPreferencesUtils.setUserId(this, userId)
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            } else {
+                Toast.makeText(this, "Kayıtlı kullanıcı bulunamadı", Toast.LENGTH_SHORT).show()
+            }
+
+            cursor.close()
         }
 
         btnSignUp.setOnClickListener {

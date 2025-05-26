@@ -1,4 +1,3 @@
-// butonla main e geçişi düzenle
 package com.example.forestapp
 
 import android.content.Intent
@@ -35,50 +34,40 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (!name.matches(Regex("[a-zA-ZğüşöçıİĞÜŞÖÇ ]+"))) {
-                Toast.makeText(this, "Ad-Soyad sadece harf içermelidir", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (!username.matches(Regex("[a-zA-Z0-9._-]+"))) {
-                Toast.makeText(this, "Kullanıcı adı geçersiz karakter içeriyor", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(this, "Geçerli bir email adresi giriniz", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Geçerli bir email girin", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val db = dbHelper.readableDatabase
-            val cursorUsername = db.rawQuery("SELECT * FROM users WHERE username = ?", arrayOf(username))
             val cursorEmail = db.rawQuery("SELECT * FROM users WHERE email = ?", arrayOf(email))
-
-            if (cursorUsername.moveToFirst()) {
-                Toast.makeText(this, "$username kullanılmaktadır, başka bir kullanıcı adı giriniz", Toast.LENGTH_SHORT).show()
-                cursorUsername.close()
-                cursorEmail.close()
-                return@setOnClickListener
-            }
+            val cursorUsername = db.rawQuery("SELECT * FROM users WHERE username = ?", arrayOf(username))
 
             if (cursorEmail.moveToFirst()) {
-                Toast.makeText(this, "$email kullanılmaktadır, başka bir email giriniz", Toast.LENGTH_SHORT).show()
-                cursorUsername.close()
+                Toast.makeText(this, "Email adresi ile hesap bulunmaktadır", Toast.LENGTH_SHORT).show()
                 cursorEmail.close()
+                cursorUsername.close()
                 return@setOnClickListener
             }
 
-            cursorUsername.close()
+            if (cursorUsername.moveToFirst()) {
+                Toast.makeText(this, "Kullanıcı adı ile hesap bulunmaktadır", Toast.LENGTH_SHORT).show()
+                cursorEmail.close()
+                cursorUsername.close()
+                return@setOnClickListener
+            }
+
             cursorEmail.close()
+            cursorUsername.close()
 
             val writableDb = dbHelper.writableDatabase
             writableDb.execSQL(
-                "INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)",
-                arrayOf(name, username, email, password)
+                "INSERT INTO users (name, username, email, password, coins, total_focus_time, trees_planted, real_trees_planted, daily_goal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                arrayOf(name, username, email, password, 0, 0, 0, 0, 25)
             )
 
-            Toast.makeText(this, "Kayıt başarılı!", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java))
+            Toast.makeText(this, "Kayıt başarılı! Giriş yapabilirsiniz", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }

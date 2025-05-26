@@ -3,16 +3,16 @@ package com.example.forestapp
 object DatabaseContract {
     object UserTable {
         const val TABLE_NAME = "users"
-        const val COLUMN_USERNAME = "username"
-        const val COLUMN_EMAIL = "email"
         const val COLUMN_ID = "id"
         const val COLUMN_NAME = "name"
+        const val COLUMN_USERNAME = "username"
+        const val COLUMN_EMAIL = "email"
+        const val COLUMN_PASSWORD = "password"
         const val COLUMN_COINS = "coins"
         const val COLUMN_TOTAL_FOCUS_TIME = "total_focus_time"
         const val COLUMN_TREES_PLANTED = "trees_planted"
         const val COLUMN_REAL_TREES_PLANTED = "real_trees_planted"
         const val COLUMN_DAILY_GOAL = "daily_goal"
-
     }
 
     object SessionTable {

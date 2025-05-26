@@ -23,4 +23,14 @@ object TreeType {
         PAPAGAN -> 20
         else -> 10
     }
+    val treeDrawables = mapOf(
+        ASTRONOT to R.drawable.astronot_balik,
+        PALYACO to R.drawable.palyaco_balik,
+        DISKUS to R.drawable.diskus_balik,
+        JAPON to R.drawable.japon_balik,
+        MOLI to R.drawable.moli_balik,
+        MELEK to R.drawable.melek_balik,
+        BETA to R.drawable.beta_balik,
+        PAPAGAN to R.drawable.papagan_balik
+    )
 }
