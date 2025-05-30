@@ -10,8 +10,7 @@ import com.example.forestapp.R
 import com.example.forestapp.RozetActivity
 import com.example.forestapp.ShopActivity
 import com.example.forestapp.databinding.FragmentForestBinding
-import ui.fragments.StatisticsFragment
-import ui.fragments.ProfileFragment
+
 
 class ForestFragment : Fragment() {
 

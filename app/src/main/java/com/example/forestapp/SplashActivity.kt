@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.example.forestapp.util.SharedPreferencesUtils
 
 class SplashActivity : AppCompatActivity() {
 
@@ -12,8 +13,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
-        val isLoggedIn = sharedPref.getBoolean("is_logged_in", false)
+        val isLoggedIn = SharedPreferencesUtils.isLoggedIn(this)
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (isLoggedIn) {
