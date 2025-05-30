@@ -8,16 +8,27 @@ import ui.fragments.ForestFragment
 import ui.fragments.ProfileFragment
 import ui.fragments.TimerFragment
 
+import com.example.forestapp.UserRepository
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var userRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        userRepository = UserRepository(this)
+        initializeUser()
         setupBottomNavigation()
         loadFragment(TimerFragment())
+    }
+
+    private fun initializeUser() {
+        if (userRepository.getUser() == null) {
+            userRepository.createInitialUser()
+        }
     }
 
     private fun setupBottomNavigation() {
@@ -25,7 +36,6 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_timer -> loadFragment(TimerFragment())
                 R.id.nav_forest -> loadFragment(ForestFragment())
-                R.id.nav_profile -> loadFragment(ProfileFragment())
                 else -> false
             }
         }
