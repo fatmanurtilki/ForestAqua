@@ -1,4 +1,3 @@
-/* Rozet ve market dosyaları eklenince düzenlenecek!!!!!*/
 package ui.fragments
 
 import android.content.Intent
@@ -8,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.forestapp.R
+import com.example.forestapp.RozetActivity
+import com.example.forestapp.ShopActivity
 import com.example.forestapp.databinding.FragmentForestBinding
 import ui.fragments.StatisticsFragment
 import ui.fragments.ProfileFragment
@@ -29,13 +30,13 @@ class ForestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /* binding.menuAchievements.setOnClickListener {
+         binding.menuAchievements.setOnClickListener {
              startActivity(Intent(requireContext(), RozetActivity::class.java))
          }
 
          binding.menuShop.setOnClickListener {
              startActivity(Intent(requireContext(), ShopActivity::class.java))
-         }*/
+         }
 
         binding.menuStatistics.setOnClickListener {
             parentFragmentManager.beginTransaction()
