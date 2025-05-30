@@ -30,10 +30,16 @@ class UserRepository(context: Context) {
         val db = dbHelper.writableDatabase
         val user = User(
             name = "Forest User",
+            username = "defaultuser",
+            email = "default@forest.com",
+            password = "1234",
             coins = 0,
             totalFocusTime = 0,
-            treesPlanted = 0
+            treesPlanted = 0,
+            realTreesPlanted = 0,
+            dailyGoal = 25
         )
+
         return insertUser(db, user)
     }
 
@@ -65,10 +71,15 @@ class UserRepository(context: Context) {
         return User(
             id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_ID)),
             name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_NAME)),
+            username = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_USERNAME)),
+            email = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_EMAIL)),
+            password = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_PASSWORD)),
             coins = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_COINS)),
             totalFocusTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_TOTAL_FOCUS_TIME)),
             treesPlanted = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_TREES_PLANTED)),
+            realTreesPlanted = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_REAL_TREES_PLANTED)),
             dailyGoal = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_DAILY_GOAL))
         )
     }
+
 }

@@ -25,11 +25,16 @@ class RozetActivity : AppCompatActivity() {
         user = User(
             id = 1,
             name = "Test user",
+            username = "demo",
+            email = "demo@user.com",
+            password = "1234",
             coins = 100,
             totalFocusTime = 1200,
             treesPlanted = 35,
+            realTreesPlanted = 10,
             dailyGoal = 25
         )
+
 
         setupUI()
     }

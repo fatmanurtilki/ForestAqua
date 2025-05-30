@@ -67,33 +67,51 @@
         android:text="25:00"
         android:textSize="48sp"/>
 
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_width="200dp"
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTimer"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="@string/start"/>
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="START"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#5B2EFF"
+            android:layout_marginEnd="16dp" />
+
+        <Button
+            android:id="@+id/btnPause"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="STOP"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#5B2EFF" />
+    </LinearLayout>
 
     <!-- android:backgroundTint="@color/gereken_mavi"-->
     <!-- android:textColor="@color/black" -->
     <TextView
         android:id="@+id/tvMotivasyon"
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="24dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnStart"
+        android:layout_below="@id/buttonContainer"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="24dp"
         android:gravity="center"
         android:lineSpacingExtra="4dp"
-        android:text='"Her yeni gün yeni bir başlangıçtır. Hayallerine bir adım daha yaklaşmak için bugünü kullan"'
+        android:padding="16dp"
+        android:text="Her yeni gün yeni bir başlangıçtır. Hayallerine bir adım daha yaklaşmak için bugünü kullan"
         android:textColor="#5D4037"
         android:textSize="12sp"
         android:textStyle="italic"
-        android:fontFamily="sans-serif-light"
-        android:padding="16dp"/>
+        android:fontFamily="sans-serif-light" />
 
     <Button
         android:id="@+id/btnTreeType"

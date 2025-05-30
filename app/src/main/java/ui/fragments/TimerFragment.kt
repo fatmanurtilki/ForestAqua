@@ -1,3 +1,4 @@
+
 package ui.fragments
 
 import android.app.AlertDialog
@@ -24,26 +25,23 @@ class TimerFragment : Fragment() {
 
     private var timer: CountDownTimer? = null
     private var isTimerRunning = false
-    private var timeLeftInMillis: Long = 25 * 60 * 1000 // 25 dakika
+    private var timeLeftInMillis: Long = 25 * 60 * 1000 // 25 dk
     private var currentTreeType = TreeType.PALYACO
+    private var elapsedMillis: Long = 0L
 
     private lateinit var floatAnimator: ValueAnimator
     private val FLOAT_AMPLITUDE = 15f
     private val FLOAT_DURATION = 4000L
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentTimerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         userRepository = UserRepository(requireContext())
         sessionRepository = SessionRepository(requireContext())
-
         setupUI()
         updateUserInfo()
         updateTreeSelectionUI()
@@ -53,19 +51,28 @@ class TimerFragment : Fragment() {
 
     private fun setupUI() {
         updateTimerText()
+
         binding.btnStart.setOnClickListener {
             if (isTimerRunning) pauseTimer() else startTimer()
         }
+
+        binding.btnPause.setOnClickListener {
+            stopTimerAndSaveSession()
+        }
+
         binding.btnTreeType.setOnClickListener {
             showTreeSelectionDialog()
         }
     }
 
     private fun startTimer() {
+        val startTime = System.currentTimeMillis()
+
         timer = object : CountDownTimer(timeLeftInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timeLeftInMillis = millisUntilFinished
                 updateTimerText()
+                elapsedMillis = 25 * 60 * 1000 - millisUntilFinished
             }
 
             override fun onFinish() {
@@ -78,11 +85,37 @@ class TimerFragment : Fragment() {
         binding.ivTree.setImageResource(getTreeImage(false))
     }
 
+    private fun pauseTimer() {
+        timer?.cancel()
+        isTimerRunning = false
+        binding.btnStart.text = getString(R.string.start)
+        floatAnimator.pause()
+    }
+
+    private fun stopTimerAndSaveSession() {
+        timer?.cancel()
+        isTimerRunning = false
+        val minutes = (elapsedMillis / 1000) / 60
+        if (minutes >= 1) {
+            val userId = SharedPreferencesUtils.getUserId(requireContext())
+            val session = Session(
+                duration = minutes.toInt() * 60,
+                treeType = currentTreeType,
+                date = Date(),
+                successful = false,
+                userId = userId
+            )
+            sessionRepository.insertSession(session)
+            userRepository.addCoins(minutes.toInt() * 4) // 25 dk = 100 coin => 1 dk = 4 coin
+            updateUserInfo()
+        }
+        resetTimer()
+    }
+
     private fun onTimerComplete() {
         val userId = SharedPreferencesUtils.getUserId(requireContext())
-
         val session = Session(
-            duration = (25 * 60),
+            duration = 25 * 60,
             treeType = currentTreeType,
             date = Date(),
             successful = true,
@@ -94,6 +127,12 @@ class TimerFragment : Fragment() {
         binding.ivTree.setImageResource(getTreeImage(true))
         resetTimer()
         growTree()
+    }
+
+    private fun resetTimer() {
+        timeLeftInMillis = 25 * 60 * 1000
+        updateTimerText()
+        binding.btnStart.text = getString(R.string.start)
     }
 
     private fun getTreeImage(isAdult: Boolean): Int {
@@ -134,13 +173,6 @@ class TimerFragment : Fragment() {
         floatAnimator.start()
     }
 
-    private fun pauseTimer() {
-        timer?.cancel()
-        isTimerRunning = false
-        binding.btnStart.text = getString(R.string.start)
-        floatAnimator.pause()
-    }
-
     private fun growTree() {
         ValueAnimator.ofFloat(1f, 1.3f).apply {
             duration = 1500
@@ -151,13 +183,6 @@ class TimerFragment : Fragment() {
             }
             start()
         }
-    }
-
-    private fun resetTimer() {
-        timeLeftInMillis = 25 * 60 * 1000
-        updateTimerText()
-        binding.btnStart.text = getString(R.string.start)
-        isTimerRunning = false
     }
 
     private fun showTreeSelectionDialog() {

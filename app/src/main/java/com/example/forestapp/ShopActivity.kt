@@ -29,11 +29,16 @@ class ShopActivity : AppCompatActivity(), ShopAdapter.OnPurchaseListener {
         return User(
             id = 1,
             name = "Test Kullanıcı",
-            coins = 150, // Başlangıç coin miktarı
+            username = "demo",
+            email = "demo@user.com",
+            password = "1234",
+            coins = 150,
             totalFocusTime = 1200,
             treesPlanted = 35,
+            realTreesPlanted = 5,
             dailyGoal = 25
         )
+
     }
 
     private fun setupUI() {
