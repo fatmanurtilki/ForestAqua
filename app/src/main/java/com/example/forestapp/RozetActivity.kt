@@ -1,16 +1,13 @@
 package com.example.forestapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.forestapp.R
-import com.example.forestapp.RozetType
-import com.example.forestapp.RozetAdapter
 import com.example.forestapp.databinding.ActivityRozetBinding
-import com.example.forestapp.User
-import com.example.forestapp.UserRepository
-import com.example.forestapp.databinding.FragmentTimerBinding
-import java.util.Date
+import com.example.forestapp.util.SharedPreferencesUtils
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import ui.fragments.ForestFragment
 
 class RozetActivity : AppCompatActivity() {
 
@@ -22,26 +19,17 @@ class RozetActivity : AppCompatActivity() {
         binding = ActivityRozetBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        user = User(
-            id = 1,
-            name = "Test user",
-            username = "demo",
-            email = "demo@user.com",
-            password = "1234",
-            coins = 100,
-            totalFocusTime = 1200,
-            treesPlanted = 35,
-            realTreesPlanted = 10,
-            dailyGoal = 25
-        )
 
+        val userId = SharedPreferencesUtils.getUserId(this)
+        user = UserRepository(this).getUserById(userId) ?: return
+
+        binding.tvCoinCount.text = "${user.coins} Coin"
 
         setupUI()
+        setupBottomNavigation()
     }
 
     private fun setupUI() {
-
-        // Rozetleri RecyclerView ile listele
         val rozetAdapter = RozetAdapter(
             RozetType.getAllRozetTypes(),
             RozetType.getEarnedRozets(user.treesPlanted),
@@ -51,6 +39,28 @@ class RozetActivity : AppCompatActivity() {
         binding.recyclerViewRozets.apply {
             layoutManager = LinearLayoutManager(this@RozetActivity)
             adapter = rozetAdapter
+        }
+    }
+
+    private fun setupBottomNavigation() {
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigation.selectedItemId = R.id.nav_forest
+
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_timer -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_forest -> {
+                    startActivity(Intent(this, ForestFragment::class.java))
+                    finish()
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 }

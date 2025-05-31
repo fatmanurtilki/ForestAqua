@@ -21,8 +21,13 @@ class RegisterActivity : AppCompatActivity() {
         val etUsername = findViewById<EditText>(R.id.etUsername)
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)
-        val btnRegister = findViewById<LinearLayout>(R.id.btnRegisterLayout)
 
+        val btnBack = findViewById<LinearLayout>(R.id.btnBackLayout)
+        btnBack.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+        val btnRegister = findViewById<LinearLayout>(R.id.btnRegisterLayout)
         btnRegister.setOnClickListener {
             val name = etName.text.toString().trim()
             val username = etUsername.text.toString().trim()
@@ -69,6 +74,7 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(this, "Kayıt başarılı! Giriş yapabilirsiniz", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
+
         }
     }
 }

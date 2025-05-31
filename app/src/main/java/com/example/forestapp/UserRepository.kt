@@ -81,5 +81,73 @@ class UserRepository(context: Context) {
             dailyGoal = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.UserTable.COLUMN_DAILY_GOAL))
         )
     }
+    fun addCoinsForUser(userId: Int, coinsToAdd: Int) {
+        val user = getUserById(userId) ?: return
+        val newTotal = user.coins + coinsToAdd
+
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put(DatabaseContract.UserTable.COLUMN_COINS, newTotal)
+        }
+        db.update(
+            DatabaseContract.UserTable.TABLE_NAME,
+            values,
+            "${DatabaseContract.UserTable.COLUMN_ID} = ?",
+            arrayOf(userId.toString())
+        )
+    }
+
+    fun addFocusTime(userId: Int, minutes: Int) {
+        val user = getUserById(userId) ?: return
+        val newTotal = user.totalFocusTime + minutes
+
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put(DatabaseContract.UserTable.COLUMN_TOTAL_FOCUS_TIME, newTotal)
+        }
+        db.update(
+            DatabaseContract.UserTable.TABLE_NAME,
+            values,
+            "${DatabaseContract.UserTable.COLUMN_ID} = ?",
+            arrayOf(userId.toString())
+        )
+    }
+
+    fun getUserById(userId: Int): User? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.query(
+            DatabaseContract.UserTable.TABLE_NAME,
+            null,
+            "${DatabaseContract.UserTable.COLUMN_ID} = ?",
+            arrayOf(userId.toString()),
+            null, null, null
+        )
+
+        return if (cursor.moveToFirst()) parseUser(cursor) else null
+            .also { cursor.close() }
+    }
+    fun updateUser(user: User) {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put(DatabaseContract.UserTable.COLUMN_NAME, user.name)
+            put(DatabaseContract.UserTable.COLUMN_USERNAME, user.username)
+            put(DatabaseContract.UserTable.COLUMN_EMAIL, user.email)
+            put(DatabaseContract.UserTable.COLUMN_PASSWORD, user.password)
+            put(DatabaseContract.UserTable.COLUMN_COINS, user.coins)
+            put(DatabaseContract.UserTable.COLUMN_TOTAL_FOCUS_TIME, user.totalFocusTime)
+            put(DatabaseContract.UserTable.COLUMN_TREES_PLANTED, user.treesPlanted)
+            put(DatabaseContract.UserTable.COLUMN_REAL_TREES_PLANTED, user.realTreesPlanted)
+            put(DatabaseContract.UserTable.COLUMN_DAILY_GOAL, user.dailyGoal)
+        }
+        db.update(
+            DatabaseContract.UserTable.TABLE_NAME,
+            values,
+            "${DatabaseContract.UserTable.COLUMN_ID} = ?",
+            arrayOf(user.id.toString())
+        )
+        db.close()
+    }
+
+
 
 }

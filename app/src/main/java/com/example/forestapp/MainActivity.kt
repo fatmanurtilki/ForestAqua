@@ -39,7 +39,5 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onBackPressed() {
-        moveTaskToBack(true)
-    }
+
 }

@@ -76,7 +76,7 @@ class StatisticsFragment : Fragment() {
 
         val entries = dataMap.map { BarEntry(it.key.toFloat(), it.value.toFloat()) }
 
-        val dataSet = BarDataSet(entries, "Kazanç")
+        val dataSet = BarDataSet(entries, "Hedef")
         dataSet.color = ContextCompat.getColor(requireContext(), R.color.purple_500)
         val barData = BarData(dataSet)
         barData.barWidth = 0.9f

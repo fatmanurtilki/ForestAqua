@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutRozet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCEFFF">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvCoinCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 Coin"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:padding="16dp"
+        android:textColor="@color/black" />
+
+    <!-- Rozet Listesi -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewRozets"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- Rozet Listesi -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewRozets"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
-
-    </LinearLayout>
-</ScrollView>
+        app:menu="@menu/bottom_nav_menu"
+        />
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import android.view.ViewGroup
 import android.animation.ValueAnimator
 import android.view.animation.LinearInterpolator
@@ -106,9 +107,15 @@ class TimerFragment : Fragment() {
                 userId = userId
             )
             sessionRepository.insertSession(session)
-            userRepository.addCoins(minutes.toInt() * 4) // 25 dk = 100 coin => 1 dk = 4 coin
+
+            val earnedCoins = minutes.toInt() * 2
+            userRepository.addCoinsForUser(userId, earnedCoins)
+            userRepository.addFocusTime(userId, minutes.toInt())
+
             updateUserInfo()
+            Toast.makeText(requireContext(), "$earnedCoins coin kazanıldı!", Toast.LENGTH_SHORT).show()
         }
+
         resetTimer()
     }
 
