@@ -1,10 +1,14 @@
 package com.example.forestapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.forestapp.databinding.ActivityShopBinding
+import com.example.forestapp.util.SharedPreferencesUtils
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import ui.fragments.ForestFragment
 
 class ShopActivity : AppCompatActivity(), ShopAdapter.OnPurchaseListener {
 
@@ -17,29 +21,39 @@ class ShopActivity : AppCompatActivity(), ShopAdapter.OnPurchaseListener {
         binding = ActivityShopBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Kullanıcı verilerini al (örneğin SharedPreferences veya database'den)
-        user = getCurrentUser() // Bu metodu kendi veri kaynağınıza göre implement edin
+        val userId = SharedPreferencesUtils.getUserId(this)
+        user = UserRepository(this).getUserById(userId) ?: return
 
         setupUI()
         updateCoinDisplay()
+        setupBottomNavigation()
     }
 
-    private fun getCurrentUser(): User {
-        // Örnek implementasyon - gerçek uygulamada veritabanından veya SharedPreferences'tan alın
-        return User(
-            id = 1,
-            name = "Test Kullanıcı",
-            coins = 150, // Başlangıç coin miktarı
-            totalFocusTime = 1200,
-            treesPlanted = 35,
-            dailyGoal = 25
-        )
+    private fun setupBottomNavigation() {
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_timer -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_forest -> {
+                    startActivity(Intent(this, ForestFragment::class.java))
+                    finish()
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     private fun setupUI() {
         shopAdapter = ShopAdapter(
             treeList = TreeType.getAllTypes(),
-            user = user, // Tüm kullanıcı nesnesini iletiyoruz
+            user = user,
             treeDrawables = TreeType.treeDrawables,
             context = this,
             onPurchaseListener = this
@@ -52,22 +66,11 @@ class ShopActivity : AppCompatActivity(), ShopAdapter.OnPurchaseListener {
     }
 
     override fun onTreePurchased(treeName: String, price: Int) {
-        // Coin'leri güncelle
         user.coins -= price
-
-        // Veritabanını/SharedPreferences'ı güncelle
-        updateUserData(user)
-
-        // UI'ı güncelle
+        UserRepository(this).updateUser(user)  // coin güncellemesini veri tabanına da işle
         updateCoinDisplay()
-        shopAdapter.notifyDataSetChanged() // Tüm listeyi yenile
-
+        shopAdapter.notifyDataSetChanged()
         Toast.makeText(this, "$treeName satın alındı! Kalan coin: ${user.coins}", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun updateUserData(user: User) {
-        // Burada kullanıcı verilerini kalıcı olarak kaydedin
-        // Örneğin: SharedPreferences, Room Database veya Firebase
     }
 
     private fun updateCoinDisplay() {

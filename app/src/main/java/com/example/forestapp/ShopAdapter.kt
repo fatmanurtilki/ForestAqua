@@ -74,4 +74,3 @@ class ShopAdapter(
         return treeList.size
     }
 }
-

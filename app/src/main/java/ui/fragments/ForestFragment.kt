@@ -1,7 +1,5 @@
 package ui.fragments
 
-//burası aslında menu fragment için
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.forestapp.R
-import com.example.forestapp.databinding.FragmentForestBinding
 import com.example.forestapp.RozetActivity
 import com.example.forestapp.ShopActivity
-// Diğer aktiviteler için aynı şekilde
-import ui.fragments.ForestFragment
-import ui.fragments.ProfileFragment
+import com.example.forestapp.databinding.FragmentForestBinding
 
 
 class ForestFragment : Fragment() {
@@ -34,9 +29,8 @@ class ForestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Menü öğelerini ayarla
         binding.menuAchievements.setOnClickListener {
-            startActivity(Intent(requireActivity(), RozetActivity::class.java))
+            startActivity(Intent(requireContext(), RozetActivity::class.java))
         }
 
         binding.menuShop.setOnClickListener {
@@ -44,11 +38,18 @@ class ForestFragment : Fragment() {
         }
 
         /*binding.menuStatistics.setOnClickListener {
-            startActivity(Intent(requireContext(), StatisticsActivity::class.java))
-        }
-        binding.menuSettings.setOnClickListener {
-            startActivity(Intent(requireContext(), SettingsActivity::class.java))
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, StatisticsFragment())
+                .addToBackStack(null)
+                .commit()
         }*/
+
+        binding.menuUser.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ProfileFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun onDestroyView() {

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Akvaryum görselleştirmesi eklenecek daha düzenlenmeler yapılacak!!!! -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/gereken_mavi"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <LinearLayout
+        android:id="@+id/coinContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/coin_icon"
+            android:layout_marginEnd="4dp" />
+
+        <TextView
+            android:id="@+id/tvCoinCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Coin"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rgFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <RadioButton
+            android:id="@+id/rbDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gün"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rbWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hafta" />
+
+        <RadioButton
+            android:id="@+id/rbMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ay" />
+
+        <RadioButton
+            android:id="@+id/rbYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yıl" />
+    </RadioGroup>
+
+
+    <ImageView
+        android:id="@+id/ivAquarium"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/glass_jar"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="12dp" />
+
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="12dp"/>
+
+</LinearLayout>
