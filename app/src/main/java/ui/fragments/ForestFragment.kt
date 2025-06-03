@@ -37,12 +37,12 @@ class ForestFragment : Fragment() {
             startActivity(Intent(requireContext(), ShopActivity::class.java))
         }
 
-        /*binding.menuStatistics.setOnClickListener {
+        binding.menuStatistics.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, StatisticsFragment())
                 .addToBackStack(null)
                 .commit()
-        }*/
+        }
 
         binding.menuUser.setOnClickListener {
             parentFragmentManager.beginTransaction()

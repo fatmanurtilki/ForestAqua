@@ -12,17 +12,18 @@ object RozetType {
 
     fun getAllRozetTypes(): List<String> = listOf(DENIZATI, YELKENLI, DENIZKABUK, INCI, DENIZALTI, DALGA, KAPLUMBAGA, DENIZYILDIZI)
 
-    // Rozetler ve kazanma koşulları (dikilen ağaç sayısı)
+    // Rozetler ve kazanma koşulları sallamasyon (dikilen ağaç sayısı)
     val rozetRequirements = mapOf(
-        DENIZATI to 5,
-        YELKENLI to 10,
-        DENIZKABUK to 20,
-        INCI to 35,
-        DENIZALTI to 50,
-        DALGA to 75,
+        DENIZATI to 10,
+        YELKENLI to 20,
+        DENIZKABUK to 25,
+        INCI to 0, // özel durum, aşağıda kontrol edilecek
+        DENIZALTI to 2,  // 2 gün 10dk üstü
+        DALGA to 7,      // 7 gün 25dk üstü
         KAPLUMBAGA to 100,
-        DENIZYILDIZI to 150
+        DENIZYILDIZI to 60
     )
+
 
     // Rozet drawable ID'leri
     val rozetDrawables = mapOf(

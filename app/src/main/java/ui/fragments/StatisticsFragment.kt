@@ -1,106 +1,148 @@
+// StatisticsFragment.kt (güncellenmiş hali)
 package ui.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.forestapp.R
 import com.example.forestapp.SessionRepository
-import com.example.forestapp.TreeType
+import com.example.forestapp.UserRepository
+import com.example.forestapp.databinding.FragmentStatisticsBinding
 import com.example.forestapp.util.SharedPreferencesUtils
-import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import java.text.SimpleDateFormat
 import java.util.*
 
 class StatisticsFragment : Fragment() {
 
-    private lateinit var barChart: BarChart
-    private lateinit var radioGroup: RadioGroup
-    private lateinit var rbDay: RadioButton
-    private lateinit var rbWeek: RadioButton
-    private lateinit var rbMonth: RadioButton
-    private lateinit var rbYear: RadioButton
+    private var _binding: FragmentStatisticsBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var sessionRepository: SessionRepository
+    private lateinit var userRepository: UserRepository
+    private var userId: Int = -1
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_statistics, container, false)
-
-        sessionRepository = SessionRepository(requireContext())
-
-        radioGroup = view.findViewById(R.id.rgFilter)
-        rbDay = view.findViewById(R.id.rbDay)
-        rbWeek = view.findViewById(R.id.rbWeek)
-        rbMonth = view.findViewById(R.id.rbMonth)
-        rbYear = view.findViewById(R.id.rbYear)
-        barChart = view.findViewById(R.id.barChart)
-
-        radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.rbDay -> loadData(Calendar.HOUR_OF_DAY, 24) { cal -> cal.get(Calendar.HOUR_OF_DAY) }
-                R.id.rbWeek -> loadData(Calendar.DAY_OF_WEEK, 7) { cal -> (cal.get(Calendar.DAY_OF_WEEK) + 5) % 7 }
-                R.id.rbMonth -> loadData(Calendar.DAY_OF_MONTH, 30) { cal -> cal.get(Calendar.DAY_OF_MONTH) - 1 }
-                R.id.rbYear -> loadData(Calendar.MONTH, 12) { cal -> cal.get(Calendar.MONTH) }
-            }
-        }
-
-        rbDay.isChecked = true
-        return view
+        _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private fun loadData(field: Int, range: Int, getKey: (Calendar) -> Int) {
-        val userId = SharedPreferencesUtils.getUserId(requireContext())
-        if (userId == -1) return
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        userId = SharedPreferencesUtils.getUserId(requireContext())
+        sessionRepository = SessionRepository(requireContext())
+        userRepository = UserRepository(requireContext())
+
+        val user = userRepository.getUserById(userId)
+        binding.tvCoinCount.text = "${user?.coins ?: 0} Coin"
+
+        binding.rbDay.setOnClickListener { loadData(FilterType.DAY) }
+        binding.rbWeek.setOnClickListener { loadData(FilterType.WEEK) }
+        binding.rbMonth.setOnClickListener { loadData(FilterType.MONTH) }
+        binding.rbYear.setOnClickListener { loadData(FilterType.YEAR) }
+
+        binding.rbDay.performClick()
+    }
+
+    private fun loadData(filter: FilterType) {
         val sessions = sessionRepository.getSessionsForUser(userId)
-        val dataMap = mutableMapOf<Int, Int>()
-        for (i in 0 until range) dataMap[i] = 0
-
-        sessions.forEach { session ->
-            val cal = Calendar.getInstance().apply { time = session.date }
-            val key = getKey(cal)
-            val coin = TreeType.getCoinValue(session.treeType)
-            dataMap[key] = dataMap[key]?.plus(coin) ?: coin
+        val grouped = when (filter) {
+            FilterType.DAY -> groupByHour(sessions)
+            FilterType.WEEK -> groupByDayOfWeek(sessions)
+            FilterType.MONTH -> groupByDayOfMonth(sessions)
+            FilterType.YEAR -> groupByMonth(sessions)
         }
 
-        val entries = dataMap.map { BarEntry(it.key.toFloat(), it.value.toFloat()) }
+        val entries = grouped.mapIndexed { index, pair ->
+            BarEntry(index.toFloat(), pair.second.toFloat())
+        }
 
-        val dataSet = BarDataSet(entries, "Hedef")
-        dataSet.color = ContextCompat.getColor(requireContext(), R.color.purple_500)
-        val barData = BarData(dataSet)
-        barData.barWidth = 0.9f
+        val dataSet = BarDataSet(entries, "Odak Süresi (dk)")
+        dataSet.color = Color.parseColor("#008577")
 
-        barChart.data = barData
-        barChart.description.isEnabled = false
-        barChart.setFitBars(true)
+        val data = BarData(dataSet)
+        data.barWidth = 0.9f
 
-        val xAxis = barChart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.granularity = 1f
-        xAxis.setDrawGridLines(false)
-        xAxis.valueFormatter = IndexAxisValueFormatter(
-            when (field) {
-                Calendar.HOUR_OF_DAY -> (0..23).map { "$it" }
-                Calendar.DAY_OF_WEEK -> listOf("Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz")
-                Calendar.DAY_OF_MONTH -> (1..30).map { "$it" }
-                Calendar.MONTH -> listOf("Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara")
-                else -> emptyList()
-            }
-        )
+        binding.barChart.apply {
+            this.data = data
+            setFitBars(true)
+            description.isEnabled = false
+            xAxis.valueFormatter = IndexAxisValueFormatter(grouped.map { it.first })
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.granularity = 1f
+            xAxis.setDrawGridLines(false)
+            axisLeft.axisMinimum = 0f
+            axisRight.isEnabled = false
+            axisLeft.setDrawGridLines(false)
+            setVisibleXRangeMaximum(6f)
+            isDragEnabled = true
+            setScaleEnabled(false)
+            invalidate()
+        }
+    }
 
-        barChart.axisLeft.axisMinimum = 0f
-        barChart.axisRight.isEnabled = false
-        barChart.invalidate()
+    private fun groupByHour(sessions: List<com.example.forestapp.Session>): List<Pair<String, Int>> {
+        val result = IntArray(24)
+        val formatter = SimpleDateFormat("HH", Locale.getDefault())
+        sessions.forEach {
+            val hour = formatter.format(it.date).toInt()
+            result[hour] += it.duration / 60
+        }
+        return result.mapIndexed { i, v -> Pair("$i:00", v) }
+    }
+
+    private fun groupByDayOfWeek(sessions: List<com.example.forestapp.Session>): List<Pair<String, Int>> {
+        val days = listOf("Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz")
+        val result = IntArray(7)
+        val cal = Calendar.getInstance()
+        sessions.forEach {
+            cal.time = it.date
+            val index = (cal.get(Calendar.DAY_OF_WEEK) + 5) % 7
+            result[index] += it.duration / 60
+        }
+        return days.mapIndexed { i, name -> Pair(name, result[i]) }
+    }
+
+    private fun groupByDayOfMonth(sessions: List<com.example.forestapp.Session>): List<Pair<String, Int>> {
+        val result = IntArray(31)
+        val cal = Calendar.getInstance()
+        sessions.forEach {
+            cal.time = it.date
+            val day = cal.get(Calendar.DAY_OF_MONTH) - 1
+            result[day] += it.duration / 60
+        }
+        return result.mapIndexed { i, v -> Pair("${i + 1}", v) }
+    }
+
+    private fun groupByMonth(sessions: List<com.example.forestapp.Session>): List<Pair<String, Int>> {
+        val months = listOf("Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara")
+        val result = IntArray(12)
+        val cal = Calendar.getInstance()
+        sessions.forEach {
+            cal.time = it.date
+            val month = cal.get(Calendar.MONTH)
+            result[month] += it.duration / 60
+        }
+        return months.mapIndexed { i, name -> Pair(name, result[i]) }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    enum class FilterType {
+        DAY, WEEK, MONTH, YEAR
     }
 }
