@@ -6,14 +6,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.forestapp.databinding.ActivityShopBinding
+import com.example.forestapp.model.Tree
+import com.example.forestapp.repository.TreeRepository
+import com.example.forestapp.repository.UserRepository
 import com.example.forestapp.util.SharedPreferencesUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import ui.fragments.ForestFragment
 
 class ShopActivity : AppCompatActivity(), ShopAdapter.OnPurchaseListener {
 
     private lateinit var binding: ActivityShopBinding
-    private lateinit var user: User
+    private val userRepo = UserRepository()
+    private val treeRepo = TreeRepository()
+    private lateinit var userId: String
+    private var currentCoin: Int = 0
+
     private lateinit var shopAdapter: ShopAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,17 +27,43 @@ class ShopActivity : AppCompatActivity(), ShopAdapter.OnPurchaseListener {
         binding = ActivityShopBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val userId = SharedPreferencesUtils.getUserId(this)
-        user = UserRepository(this).getUserById(userId) ?: return
-
-        setupUI()
-        updateCoinDisplay()
+        userId = SharedPreferencesUtils.getUserId(this)
+        loadUserAndSetupUI()
         setupBottomNavigation()
     }
 
-    private fun setupBottomNavigation() {
-        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+    private fun loadUserAndSetupUI() {
+        userRepo.getUserById(userId) { user ->
+            if (user != null) {
+                currentCoin = user.coins
+                binding.tvCoinCount.text = "$currentCoin Coin"
+                shopAdapter = ShopAdapter(TreeType.getAllTypes(), currentCoin, TreeType.treeDrawables, this, this)
+                binding.recyclerViewShop.layoutManager = LinearLayoutManager(this)
+                binding.recyclerViewShop.adapter = shopAdapter
+            }
+        }
+    }
 
+    override fun onTreePurchased(treeName: String, price: Int) {
+        currentCoin -= price
+        binding.tvCoinCount.text = "$currentCoin Coin"
+        userRepo.addCoins(userId, -price)
+
+        val tree = Tree(
+            type = treeName,
+            plantDate = java.util.Date(),
+            daysGrown = 0,
+            isRealTree = false,
+            userId = userId
+        )
+        treeRepo.insertTree(tree)
+        Toast.makeText(this, "$treeName satın alındı!", Toast.LENGTH_SHORT).show()
+        shopAdapter.updateUserCoin(currentCoin)
+    }
+
+    private fun setupBottomNavigation() {
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigation.selectedItemId = R.id.nav_forest
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_timer -> {
@@ -40,40 +72,12 @@ class ShopActivity : AppCompatActivity(), ShopAdapter.OnPurchaseListener {
                     true
                 }
                 R.id.nav_forest -> {
-                    startActivity(Intent(this, ForestFragment::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                     true
                 }
-
                 else -> false
             }
         }
-    }
-
-    private fun setupUI() {
-        shopAdapter = ShopAdapter(
-            treeList = TreeType.getAllTypes(),
-            user = user,
-            treeDrawables = TreeType.treeDrawables,
-            context = this,
-            onPurchaseListener = this
-        )
-
-        binding.recyclerViewShop.apply {
-            layoutManager = LinearLayoutManager(this@ShopActivity)
-            adapter = shopAdapter
-        }
-    }
-
-    override fun onTreePurchased(treeName: String, price: Int) {
-        user.coins -= price
-        UserRepository(this).updateUser(user)  // coin güncellemesini veri tabanına da işle
-        updateCoinDisplay()
-        shopAdapter.notifyDataSetChanged()
-        Toast.makeText(this, "$treeName satın alındı! Kalan coin: ${user.coins}", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun updateCoinDisplay() {
-        binding.tvCoinCount.text = "${user.coins} Coin"
     }
 }

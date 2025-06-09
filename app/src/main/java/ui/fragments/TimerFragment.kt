@@ -4,15 +4,17 @@ import android.animation.ValueAnimator
 import android.app.AlertDialog
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.forestapp.*
+import com.example.forestapp.R
 import com.example.forestapp.databinding.FragmentTimerBinding
+import com.example.forestapp.model.Session
+import com.example.forestapp.repository.SessionRepository
+import com.example.forestapp.repository.UserRepository
 import com.example.forestapp.util.SharedPreferencesUtils
+import com.example.forestapp.TreeType
 import java.util.*
 
 class TimerFragment : Fragment() {
@@ -20,19 +22,17 @@ class TimerFragment : Fragment() {
     private var _binding: FragmentTimerBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var userRepository: UserRepository
-    private lateinit var sessionRepository: SessionRepository
+    private lateinit var userRepo: UserRepository
+    private lateinit var sessionRepo: SessionRepository
 
     private var timer: CountDownTimer? = null
     private var isTimerRunning = false
     private var isPaused = false
-    private var timeLeftInMillis: Long = 25 * 60 * 1000
+    private var timeLeftInMillis = 25 * 60 * 1000L
     private var currentTreeType = TreeType.PALYACO
-    private var elapsedMillis: Long = 0L
+    private var elapsedMillis = 0L
 
     private lateinit var floatAnimator: ValueAnimator
-    private val FLOAT_AMPLITUDE = 15f
-    private val FLOAT_DURATION = 4000L
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentTimerBinding.inflate(inflater, container, false)
@@ -41,12 +41,10 @@ class TimerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userRepository = UserRepository(requireContext())
-        sessionRepository = SessionRepository(requireContext())
+        userRepo = UserRepository()
+        sessionRepo = SessionRepository()
         setupUI()
-        updateUserInfo()
         updateTreeSelectionUI()
-        binding.ivJar.setImageResource(R.drawable.glass_jar)
         startFloatingAnimation()
     }
 
@@ -54,13 +52,9 @@ class TimerFragment : Fragment() {
         updateTimerText()
 
         binding.btnStart.setOnClickListener {
-            if (isPaused) {
-                startTimer()
-            } else if (isTimerRunning) {
-                pauseTimer()
-            } else {
-                startTimer()
-            }
+            if (isPaused) startTimer()
+            else if (isTimerRunning) pauseTimer()
+            else startTimer()
         }
 
         binding.btnPause.setOnClickListener {
@@ -70,14 +64,16 @@ class TimerFragment : Fragment() {
         binding.btnTreeType.setOnClickListener {
             showTreeSelectionDialog()
         }
+
+        binding.ivJar.setImageResource(R.drawable.glass_jar)
     }
 
     private fun startTimer() {
         timer = object : CountDownTimer(timeLeftInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timeLeftInMillis = millisUntilFinished
-                updateTimerText()
                 elapsedMillis = 25 * 60 * 1000 - millisUntilFinished
+                updateTimerText()
             }
 
             override fun onFinish() {
@@ -95,7 +91,7 @@ class TimerFragment : Fragment() {
         timer?.cancel()
         isTimerRunning = false
         isPaused = true
-        binding.btnStart.text = getString(R.string.pause)
+        binding.btnStart.text = getString(R.string.start)
         floatAnimator.pause()
     }
 
@@ -112,16 +108,11 @@ class TimerFragment : Fragment() {
                 successful = false,
                 userId = userId
             )
-            sessionRepository.insertSession(session)
-
-            val earnedCoins = minutes.toInt() * 2
-            userRepository.addCoinsForUser(userId, earnedCoins)
-            userRepository.addFocusTime(userId, minutes.toInt())
-
-            updateUserInfo()
-            Toast.makeText(requireContext(), "$earnedCoins coin kazanıldı!", Toast.LENGTH_SHORT).show()
+            sessionRepo.insertSession(session)
+            userRepo.addCoins(userId, minutes.toInt() * 2)
+            userRepo.addFocusTime(userId, minutes.toInt())
+            Toast.makeText(requireContext(), "${minutes * 2} coin kazandınız!", Toast.LENGTH_SHORT).show()
         }
-
         resetTimer()
     }
 
@@ -134,9 +125,8 @@ class TimerFragment : Fragment() {
             successful = true,
             userId = userId
         )
-        sessionRepository.insertSession(session)
-        userRepository.addCoinsForUser(userId, TreeType.getCoinValue(currentTreeType))
-        updateUserInfo()
+        sessionRepo.insertSession(session)
+        userRepo.addCoins(userId, TreeType.getCoinValue(currentTreeType))
         binding.ivTree.setImageResource(getTreeImage(true))
         resetTimer()
         growTree()
@@ -159,25 +149,16 @@ class TimerFragment : Fragment() {
         binding.tvTimer.text = String.format("%02d:%02d", minutes, seconds)
     }
 
-    private fun updateUserInfo() {
-        val userId = SharedPreferencesUtils.getUserId(requireContext())
-        val user = UserRepository(requireContext()).getUserById(userId)
-        user?.let {
-            binding.tvCoins.text = "Coins: ${it.coins}"
-        }
-    }
-
     private fun updateTreeSelectionUI() {
         binding.btnTreeType.text = currentTreeType
     }
 
     private fun startFloatingAnimation() {
-        floatAnimator = ValueAnimator.ofFloat(-FLOAT_AMPLITUDE, FLOAT_AMPLITUDE).apply {
-            duration = FLOAT_DURATION
+        floatAnimator = ValueAnimator.ofFloat(-15f, 15f).apply {
+            duration = 4000
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
             interpolator = LinearInterpolator()
-
             addUpdateListener { animation ->
                 val value = animation.animatedValue as Float
                 binding.ivTree.translationY = value
@@ -191,8 +172,8 @@ class TimerFragment : Fragment() {
     private fun growTree() {
         ValueAnimator.ofFloat(1f, 1.3f).apply {
             duration = 1500
-            addUpdateListener { animation ->
-                val scale = animation.animatedValue as Float
+            addUpdateListener {
+                val scale = it.animatedValue as Float
                 binding.ivTree.scaleX = scale
                 binding.ivTree.scaleY = scale
             }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "368061412993",
+    "project_id": "aquaapp-eb577",
+    "storage_bucket": "aquaapp-eb577.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368061412993:android:d7337fcffc752c37e2ff80",
+        "android_client_info": {
+          "package_name": "com.example.forestapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTTZYISnUo5fjzDToXbfwTP_MfRfXbjTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
