@@ -32,6 +32,12 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/soundSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
     <!-- ivTree'nin üstüne bu FrameLayout'ı ekleyin -->
     <FrameLayout
         android:layout_width="220dp"
