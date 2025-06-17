@@ -30,7 +30,8 @@ object LocaleHelper {
     }
 
     @Suppress("DEPRECATION")
-    private fun updateResourcesLegacy(context: Context, language: String): Context {
+    private fun updateResourcesLegacy(context: Context, language: String):
+            Context {
         val locale = Locale(language)
         Locale.setDefault(locale)
 

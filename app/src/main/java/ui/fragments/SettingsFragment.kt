@@ -48,7 +48,6 @@ class SettingsFragment : Fragment() {
         }
 
         binding.buttonSound.setOnClickListener {
-            // Ses bölümü henüz tanımlı değil
         }
     }
 

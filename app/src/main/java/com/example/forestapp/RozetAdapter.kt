@@ -1,46 +1,35 @@
 package com.example.forestapp
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.forestapp.R
 
 class RozetAdapter(
-    private val rozetList: List<String>,
+    private val allRozets: List<String>,
     private val earnedRozets: List<String>,
-    private val rozetDrawables: Map<String, Int>
+    private val drawables: Map<String, Int>
 ) : RecyclerView.Adapter<RozetAdapter.RozetViewHolder>() {
 
-    inner class RozetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val rozetImage: ImageView = itemView.findViewById(R.id.rozetImage)
-        val rozetName: TextView = itemView.findViewById(R.id.rozetName)
-        val rozetStatus: TextView = itemView.findViewById(R.id.rozetStatus)
+    inner class RozetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.findViewById(R.id.rozetImage)
+        val name: TextView = view.findViewById(R.id.rozetName)
+        val status: TextView = view.findViewById(R.id.rozetStatus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RozetViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_rozet, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_rozet, parent, false)
         return RozetViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RozetViewHolder, position: Int) {
-        val rozetName = rozetList[position]
-        val isEarned = earnedRozets.contains(rozetName)
+        val name = allRozets[position]
+        val earned = earnedRozets.contains(name)
 
-        holder.rozetName.text = rozetName
-        holder.rozetImage.setImageResource(rozetDrawables[rozetName] ?: R.drawable.rozet_gemi)
-
-        if (isEarned) {
-            holder.rozetStatus.text = "Kazanıldı"
-            holder.rozetImage.alpha = 1f
-        } else {
-            holder.rozetStatus.text = "Kazanılmadı"
-            holder.rozetImage.alpha = 0.3f
-        }
+        holder.name.text = name
+        holder.image.setImageResource(drawables[name] ?: R.drawable.rozet_gemi)
+        holder.status.text = if (earned) "Kazanıldı" else "Kazanılmadı"
+        holder.image.alpha = if (earned) 1f else 0.3f
     }
-
-    override fun getItemCount() = rozetList.size
+    override fun getItemCount() = allRozets.size
 }
