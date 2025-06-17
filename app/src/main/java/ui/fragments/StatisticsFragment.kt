@@ -19,6 +19,12 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import java.util.*
+<<<<<<< Updated upstream
+=======
+import android.widget.EditText
+import androidx.core.content.ContextCompat
+import com.example.forestapp.R
+>>>>>>> Stashed changes
 
 class StatisticsFragment : Fragment() {
 
@@ -39,12 +45,18 @@ class StatisticsFragment : Fragment() {
 
         sessionRepository = SessionRepository(requireContext())
 
+<<<<<<< Updated upstream
         radioGroup = view.findViewById(R.id.rgFilter)
         rbDay = view.findViewById(R.id.rbDay)
         rbWeek = view.findViewById(R.id.rbWeek)
         rbMonth = view.findViewById(R.id.rbMonth)
         rbYear = view.findViewById(R.id.rbYear)
         barChart = view.findViewById(R.id.barChart)
+=======
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        applyBackgroundColor(view)
+>>>>>>> Stashed changes
 
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
@@ -102,5 +114,14 @@ class StatisticsFragment : Fragment() {
         barChart.axisLeft.axisMinimum = 0f
         barChart.axisRight.isEnabled = false
         barChart.invalidate()
+    }
+    private fun applyBackgroundColor(view: View) {
+        val colorName = SharedPreferencesUtils.getBackgroundColor(requireContext())
+        val colorResId = when (colorName) {
+            "gereken_pembe" -> R.color.gereken_pembe
+            "gereken_sari" -> R.color.gereken_sari
+            else -> R.color.gereken_mavi
+        }
+        view.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
     }
 }

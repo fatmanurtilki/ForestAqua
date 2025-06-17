@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">ForestApp</string>
+    <string name="login_email">Login with Email</string>
+    <string name="login_username">Login with Username</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Full Name</string>
+    <string name="hint_username">Username</string>
+    <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
+    <string name="button_back">Go Back</string>
+    <string name="settings_background">Background Color</string>
+    <string name="settings_access_list">Access List</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_sound">Sound</string>
+    <string name="access_list_title">Select Applications to Block</string>
+    <string name="language_title">Select Language</string>
+    <string name="language_turkish">▶ Turkish</string>
+    <string name="language_english">▶ English</string>
+    <string name="profile_username">Username</string>
+    <string name="profile_stats">Statistics Data</string>
+    <string name="profile_logout">Delete Account</string>
+    <string name="menu_statistics">Statistics</string>
+    <string name="menu_badges">Badges</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_profile">Profile</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="pause">PAUSE</string>
+    <string-array name="motivasyon_listesi">
+        <item>Every new day is a new beginning.</item>
+        <item>Use today to get one step closer to your dreams.</item>
+        <item>Small steps bring big changes.</item>
+        <item>Now is the best time to start.</item>
+        <item>Focus today, be proud tomorrow.</item>
+        <item>Just keep trying.</item>
+        <item>Consistency brings success.</item>
+        <item>You can do it!</item>
+    </string-array>
+    <string name="menu_achievements">Achievements</string>
+    <string name="menu_user">Profile</string>
+    <string name="language_updated">Language updated</string>
+    <string name="button_fish">Fish</string>
+    <string name="filter_day">Day</string>
+    <string name="filter_week">Week</string>
+    <string name="filter_month">Month</string>
+    <string name="filter_year">Year</string>
+    <string name="badge_earned">Earned</string>
+    <string name="badge_not_earned">Not Earned</string>
+    <string name="badge_example">Sea Badge</string>
+    <string name="coin_count"> Coin</string>
+    <string name="timer">Timer</string>
+
+</resources>

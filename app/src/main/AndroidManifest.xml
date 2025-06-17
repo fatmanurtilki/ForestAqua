@@ -18,7 +18,6 @@
         <activity android:name=".RegisterActivity" android:exported="true"/>
         <activity android:name=".MainActivity" android:exported="true"/>
         <activity android:name=".RozetActivity" android:exported="true"/>
-        <activity android:name=".ShopActivity" android:exported="true"/>
 
     </application>
 </manifest>

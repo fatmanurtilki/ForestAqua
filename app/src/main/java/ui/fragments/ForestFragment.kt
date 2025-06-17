@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.forestapp.R
 import com.example.forestapp.RozetActivity
 import com.example.forestapp.ShopActivity
 import com.example.forestapp.databinding.FragmentForestBinding
+import com.example.forestapp.util.SharedPreferencesUtils
 
 
 class ForestFragment : Fragment() {
@@ -37,6 +40,12 @@ class ForestFragment : Fragment() {
              startActivity(Intent(requireContext(), ShopActivity::class.java))
          }
 
+        applyBackgroundColor()
+
+        binding.menuAchievements.setOnClickListener {
+            startActivity(Intent(requireContext(), RozetActivity::class.java))
+        }
+
         binding.menuStatistics.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, StatisticsFragment())
@@ -50,6 +59,23 @@ class ForestFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        binding.menuSettings.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, SettingsFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
+    private fun applyBackgroundColor() {
+        val colorName = SharedPreferencesUtils.getBackgroundColor(requireContext())
+        val colorResId = when (colorName) {
+            "gereken_pembe" -> R.color.gereken_pembe
+            "gereken_sari" -> R.color.gereken_sari
+            else -> R.color.gereken_mavi
+        }
+        binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
     }
 
     override fun onDestroyView() {

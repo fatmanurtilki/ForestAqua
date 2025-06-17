@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gereken_mavi"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="start"
+        android:layout_marginTop="20dp">
+
+        <!-- Arka Plan Rengi -->
+        <LinearLayout
+            android:id="@+id/buttonBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_fish" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arka Plan Rengi"
+                android:textStyle="bold"
+                android:paddingStart="12dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Erişim Listesi -->
+        <LinearLayout
+            android:id="@+id/buttonAccess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_fish" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Erişim Listesi"
+                android:textStyle="bold"
+                android:paddingStart="12dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Dil -->
+        <LinearLayout
+            android:id="@+id/buttonLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_fish" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dil"
+                android:textStyle="bold"
+                android:paddingStart="12dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Ses -->
+        <LinearLayout
+            android:id="@+id/buttonSound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_fish" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ses"
+                android:textStyle="bold"
+                android:paddingStart="12dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

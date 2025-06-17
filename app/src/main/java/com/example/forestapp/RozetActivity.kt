@@ -1,10 +1,19 @@
 package com.example.forestapp
 
+<<<<<<< Updated upstream
 import android.content.Intent
+=======
+import android.content.Context
+>>>>>>> Stashed changes
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.forestapp.databinding.ActivityRozetBinding
+<<<<<<< Updated upstream
+=======
+import com.example.forestapp.repository.UserRepository
+import com.example.forestapp.util.LocaleHelper
+>>>>>>> Stashed changes
 import com.example.forestapp.util.SharedPreferencesUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ui.fragments.ForestFragment
@@ -62,5 +71,12 @@ class RozetActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        SharedPreferencesUtils.applySavedBackgroundColor(this)
+        setContentView(R.layout.activity_rozet)
+    }
+    override fun attachBaseContext(newBase: Context?) {
+        val lang = SharedPreferencesUtils.getAppLanguage(newBase!!)
+        val context = LocaleHelper.setLocale(newBase, lang)
+        super.attachBaseContext(context)
     }
 }

@@ -1,9 +1,53 @@
 <resources>
-    <string name="app_name">Forest App</string>
-    <string name="start">Start</string>
-    <string name="pause">Pause</string>
-    <string name="tree_oak">Oak</string>
-    <string name="timer">Timer</string>
-    <string name="forest">Forest</string>
-    <string name="profile">Profile</string>
+    <string name="app_name">ForestApp</string>
+    <string name="login_email">Email ile Giriş</string>
+    <string name="login_username">Kullanıcı Adı ile Giriş</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Şifre</string>
+    <string name="hint_name">Ad Soyad</string>
+    <string name="hint_username">Kullanıcı Adı</string>
+    <string name="button_login">Giriş Yap</string>
+    <string name="button_register">Kayıt Ol</string>
+    <string name="button_back">Geri Dön</string>
+    <string name="settings_background">Arka Plan Rengi</string>
+    <string name="settings_access_list">Erişim Listesi</string>
+    <string name="settings_language">Dil</string>
+    <string name="settings_sound">Ses</string>
+    <string name="access_list_title">Erişimi Yasaklanacak Uygulamaları Seçiniz</string>
+    <string name="language_title">Dil Seçiniz</string>
+    <string name="language_turkish">▶ Türkçe</string>
+    <string name="language_english">▶ İngilizce</string>
+    <string name="profile_username">Kullanıcı Adı</string>
+    <string name="profile_stats">İstatistik Verileri</string>
+    <string name="profile_logout">Hesabı Kapat</string>
+    <string name="menu_statistics">İstatistikler</string>
+    <string name="menu_badges">Rozetler</string>
+    <string name="menu_settings">Ayarlar</string>
+    <string name="menu_profile">Profil</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="pause">PAUSE</string>
+    <string-array name="motivasyon_listesi">
+        <item>Her yeni gün yeni bir başlangıçtır.</item>
+        <item>Hayallerine bir adım daha yaklaşmak için bugünü kullan.</item>
+        <item>Küçük adımlar büyük değişimler getirir.</item>
+        <item>Şu an başlamak için en iyi zamandır.</item>
+        <item>Bugün odaklan, yarın gurur duy.</item>
+        <item>Sadece denemeye devam et.</item>
+        <item>İstikrar başarıyı getirir.</item>
+        <item>Sen yapabilirsin!</item>
+    </string-array>
+    <string name="menu_achievements">Rozetler</string>
+    <string name="menu_user">Profil</string>
+    <string name="language_updated">Dil güncellendi</string>
+    <string name="button_fish">Balik</string>
+    <string name="filter_day">Gün</string>
+    <string name="filter_week">Hafta</string>
+    <string name="filter_month">Ay</string>
+    <string name="filter_year">Yıl</string>
+    <string name="badge_earned">Kazanıldı</string>
+    <string name="badge_not_earned">Kazanılmadı</string>
+    <string name="badge_example">Deniz Rozeti</string>
+    <string name="coin_count"> Coin</string>
+    <string name="timer">Zamanlayıcı</string>
 </resources>

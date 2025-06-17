@@ -1,11 +1,16 @@
 package com.example.forestapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+
+import com.example.forestapp.util.LocaleHelper
+import com.example.forestapp.util.SharedPreferencesUtils
+>>>>>> Stashed changes
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -23,10 +28,57 @@ class RegisterActivity : AppCompatActivity() {
         val etPassword = findViewById<EditText>(R.id.etPassword)
 
         val btnBack = findViewById<LinearLayout>(R.id.btnBackLayout)
+<<<<<<< Updated upstream
+=======
+
+        btnRegister.setOnClickListener {
+            val name = etName.text.toString()
+            val username = etUsername.text.toString()
+            val email = etEmail.text.toString()
+            val password = etPassword.text.toString()
+
+            if (name.isBlank() || username.isBlank() || email.isBlank() || password.isBlank()) {
+                Toast.makeText(this, "Tüm alanları doldurun", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnSuccessListener {
+                    val uid = it.user?.uid ?: return@addOnSuccessListener
+                    val user = User(
+                        id = uid,
+                        name = name,
+                        username = username,
+                        email = email,
+                        password = password
+                    )
+                    userRepo.createUser(
+                        uid, user,
+                        onSuccess = {
+                            Toast.makeText(this, "Kayıt başarılı", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finish()
+                        },
+                        onFailure = {
+                            Toast.makeText(this, "Firestore'a kayıt başarısız", Toast.LENGTH_SHORT)
+                                .show()
+                        })
+                }
+                .addOnFailureListener {
+                    Toast.makeText(
+                        this,
+                        "Kayıt başarısız: ${it.localizedMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+
+>>>>>>> Stashed changes
         btnBack.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+<<<<<<< Updated upstream
         val btnRegister = findViewById<LinearLayout>(R.id.btnRegisterLayout)
         btnRegister.setOnClickListener {
             val name = etName.text.toString().trim()
@@ -78,3 +130,14 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 }
+=======
+        SharedPreferencesUtils.applySavedBackgroundColor(this)
+        setContentView(R.layout.activity_register)
+    }
+        override fun attachBaseContext(newBase: Context?) {
+            val lang = SharedPreferencesUtils.getAppLanguage(newBase!!)
+            val context = LocaleHelper.setLocale(newBase, lang)
+            super.attachBaseContext(context)
+        }
+}
+>>>>>>> Stashed changes

@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
         <color name="gereken_mavi">#D0F0FF</color>
+    <color name="gereken_mavi">#D0F0FF</color>
+    <color name="gereken_pembe">#FFCCCC</color>
+    <color name="gereken_sari">#FFF2CC</color>
 </resources>

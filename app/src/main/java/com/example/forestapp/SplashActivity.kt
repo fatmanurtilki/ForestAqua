@@ -1,5 +1,6 @@
 package com.example.forestapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -24,4 +25,12 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }, 2000)
     }
+<<<<<<< Updated upstream
 }
+=======
+    override fun attachBaseContext(newBase: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(newBase)
+        super.attachBaseContext(com.example.forestapp.util.LocaleHelper.setLocale(newBase, lang))
+    }
+}
+>>>>>>> Stashed changes

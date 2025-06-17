@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.forestapp.LoginActivity
 import com.example.forestapp.R
@@ -31,6 +32,7 @@ class ProfileFragment : Fragment() {
         btnLogout = view.findViewById(R.id.btnLogout)
         userRepository = UserRepository(requireContext())
 
+<<<<<<< Updated upstream
         val user = userRepository.getUser()
         user?.let {
             tvName.text = it.name
@@ -40,6 +42,13 @@ class ProfileFragment : Fragment() {
                 Gerçek Balık: ${it.realTreesPlanted}
                 Günlük Hedef: ${it.dailyGoal} dk
             """.trimIndent()
+=======
+        applyBackgroundColor(view)
+
+        val userId = SharedPreferencesUtils.getUserId(requireContext())
+        userRepo.getUserById(userId) { user ->
+            user?.let { updateUI(it) }
+>>>>>>> Stashed changes
         }
 
         btnLogout.setOnClickListener {
@@ -51,4 +60,27 @@ class ProfileFragment : Fragment() {
 
         return view
     }
+<<<<<<< Updated upstream
 }
+=======
+
+    private fun updateUI(user: User) {
+        tvName.text = user.name
+        tvStats.text = """
+            Odak Süresi: ${user.totalFocusTime} dk
+            Toplam Balık: ${user.treesPlanted}
+            Günlük Hedef: ${user.dailyGoal} dk
+        """.trimIndent()
+    }
+
+    private fun applyBackgroundColor(view: View) {
+        val colorName = SharedPreferencesUtils.getBackgroundColor(requireContext())
+        val colorResId = when (colorName) {
+            "gereken_pembe" -> R.color.gereken_pembe
+            "gereken_sari" -> R.color.gereken_sari
+            else -> R.color.gereken_mavi
+        }
+        view.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
+    }
+}
+>>>>>>> Stashed changes

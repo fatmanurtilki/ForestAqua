@@ -1,9 +1,11 @@
 package com.example.forestapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.forestapp.util.LocaleHelper
 import com.example.forestapp.util.SharedPreferencesUtils
 
 class LoginActivity : AppCompatActivity() {
@@ -64,5 +66,12 @@ class LoginActivity : AppCompatActivity() {
         btnSignUp.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+        SharedPreferencesUtils.applySavedBackgroundColor(this)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val lang = SharedPreferencesUtils.getAppLanguage(newBase!!)
+        val context = LocaleHelper.setLocale(newBase, lang)
+        super.attachBaseContext(context)
     }
 }
