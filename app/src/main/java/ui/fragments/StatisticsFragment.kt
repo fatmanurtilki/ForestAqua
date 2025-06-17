@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.EditText
 
 class StatisticsFragment : Fragment() {
 
@@ -35,10 +36,6 @@ class StatisticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         userId = SharedPreferencesUtils.getUserId(requireContext())
-
-        userRepo.getUserById(userId) { user ->
-            binding.tvCoinCount.text = "${user?.coins ?: 0} Coin"
-        }
 
         binding.rbDay.setOnClickListener { loadData(FilterType.DAY) }
         binding.rbWeek.setOnClickListener { loadData(FilterType.WEEK) }

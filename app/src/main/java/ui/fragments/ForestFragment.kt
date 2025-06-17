@@ -24,10 +24,6 @@ class ForestFragment : Fragment() {
             startActivity(Intent(requireContext(), RozetActivity::class.java))
         }
 
-        binding.menugidis.setOnClickListener {
-            startActivity(Intent(requireContext(), ShopActivity::class.java))
-        }
-
         binding.menuStatistics.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, StatisticsFragment())

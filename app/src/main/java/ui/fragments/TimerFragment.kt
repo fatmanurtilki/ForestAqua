@@ -7,13 +7,14 @@ import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.text.InputType
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.forestapp.*
@@ -23,7 +24,6 @@ import com.example.forestapp.repository.SessionRepository
 import com.example.forestapp.repository.UserRepository
 import com.example.forestapp.util.SharedPreferencesUtils
 import java.util.*
-import android.widget.EditText
 
 class TimerFragment : Fragment() {
 
@@ -47,6 +47,20 @@ class TimerFragment : Fragment() {
     private val FLOAT_AMPLITUDE = 15f
     private val FLOAT_DURATION = 4000L
 
+    // ✅ MOTİVASYONLAR
+    private val motivasyonListesi = listOf(
+        "Her yeni gün yeni bir başlangıçtır.",
+        "Hayallerine bir adım daha yaklaşmak için bugünü kullan.",
+        "Küçük adımlar büyük değişimler getirir.",
+        "Şu an başlamak için en iyi zamandır.",
+        "Bugün odaklan, yarın gurur duy.",
+        "Sadece denemeye devam et.",
+        "İstikrar başarıyı getirir.",
+        "Sen yapabilirsin!"
+    )
+    private val motivasyonHandler = Handler()
+    private lateinit var motivasyonRunnable: Runnable
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentTimerBinding.inflate(inflater, container, false)
         return binding.root
@@ -67,6 +81,8 @@ class TimerFragment : Fragment() {
         updateUserInfo()
         startFloatingAnimation()
         binding.ivJar.setImageResource(R.drawable.glass_jar)
+
+        startMotivasyonDegisimi()
     }
 
     private fun setupUI() {
@@ -196,9 +212,9 @@ class TimerFragment : Fragment() {
                 userId = userId
             )
             sessionRepository.insertSession(session)
-            userRepository.addCoins(userId, minutes.toInt() * 2)
+            userRepository.addCoins(userId, minutes.toInt() * 20)
             userRepository.addFocusTime(userId, minutes.toInt())
-            Toast.makeText(requireContext(), "${minutes * 2} coin kazandınız!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "${minutes * 20} coin kazandınız!", Toast.LENGTH_SHORT).show()
         }
 
         resetTimer()
@@ -230,7 +246,7 @@ class TimerFragment : Fragment() {
 
     private fun startSound() {
         val soundResId = when (selectedSound) {
-            "forest" -> R.raw.forest
+            "forest" -> R.raw.huzur
             "rain" -> R.raw.rainforest
             "sea" -> R.raw.ocean_waves
             else -> R.raw.cricket
@@ -311,11 +327,24 @@ class TimerFragment : Fragment() {
             .show()
     }
 
+    // motivasyo loop
+    private fun startMotivasyonDegisimi() {
+        motivasyonRunnable = object : Runnable {
+            override fun run() {
+                val rastgele = motivasyonListesi.random()
+                binding.tvMotivasyon.text = rastgele
+                motivasyonHandler.postDelayed(this, 10000)
+            }
+        }
+        motivasyonHandler.post(motivasyonRunnable)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         timer?.cancel()
         floatAnimator.cancel()
         stopSound()
+        motivasyonHandler.removeCallbacks(motivasyonRunnable)
         _binding = null
     }
 }
