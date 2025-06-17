@@ -7,8 +7,11 @@ import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.InputType
 import android.view.*
 import android.view.animation.LinearInterpolator
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -20,6 +23,7 @@ import com.example.forestapp.repository.SessionRepository
 import com.example.forestapp.repository.UserRepository
 import com.example.forestapp.util.SharedPreferencesUtils
 import java.util.*
+import android.widget.EditText
 
 class TimerFragment : Fragment() {
 
@@ -58,6 +62,7 @@ class TimerFragment : Fragment() {
 
         setupUI()
         setupSoundSpinner()
+        setupTimerEditText()
         updateTreeSelectionUI()
         updateUserInfo()
         startFloatingAnimation()
@@ -79,6 +84,48 @@ class TimerFragment : Fragment() {
 
         binding.btnTreeType.setOnClickListener {
             showTreeSelectionDialog()
+        }
+    }
+
+    private fun setupTimerEditText() {
+        binding.tvTimer.setOnClickListener {
+            showTimeInputDialog()
+        }
+
+        binding.tvTimer.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                validateAndSetTime(binding.tvTimer.text.toString())
+                true
+            } else {
+                false
+            }
+        }
+    }
+
+    private fun showTimeInputDialog() {
+        val input = EditText(requireContext()).apply {
+            inputType = InputType.TYPE_CLASS_NUMBER
+            setText((timeLeftInMillis / 60000).toString())
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Süreyi Ayarla (Dakika)")
+            .setView(input)
+            .setPositiveButton("Tamam") { _, _ ->
+                validateAndSetTime(input.text.toString())
+            }
+            .setNegativeButton("İptal", null)
+            .show()
+    }
+
+    private fun validateAndSetTime(input: String) {
+        val minutes = input.toIntOrNull()?.coerceIn(1, 120) ?: 25
+        timeLeftInMillis = minutes * 60 * 1000L
+        updateTimerText()
+
+        if (isTimerRunning) {
+            timer?.cancel()
+            startTimer()
         }
     }
 
@@ -108,7 +155,7 @@ class TimerFragment : Fragment() {
         timer = object : CountDownTimer(timeLeftInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timeLeftInMillis = millisUntilFinished
-                elapsedMillis = 25 * 60 * 1000 - millisUntilFinished
+                elapsedMillis = (timeLeftInMillis / 60000 + 1) * 60 * 1000 - millisUntilFinished
                 updateTimerText()
             }
 
@@ -160,7 +207,7 @@ class TimerFragment : Fragment() {
     private fun onTimerComplete() {
         val userId = SharedPreferencesUtils.getUserId(requireContext())
         val session = Session(
-            duration = 25 * 60,
+            duration = (timeLeftInMillis / 60000).toInt() * 60,
             treeType = currentTreeType,
             date = Date(),
             successful = true,
@@ -204,7 +251,7 @@ class TimerFragment : Fragment() {
     private fun updateTimerText() {
         val minutes = (timeLeftInMillis / 1000) / 60
         val seconds = (timeLeftInMillis / 1000) % 60
-        binding.tvTimer.text = String.format("%02d:%02d", minutes, seconds)
+        binding.tvTimer.setText(String.format("%02d:%02d", minutes, seconds))
     }
 
     private fun updateTreeSelectionUI() {

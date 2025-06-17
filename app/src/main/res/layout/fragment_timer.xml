@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -63,15 +64,22 @@
         android:layout_marginTop="32dp"
         android:src="@drawable/palyaco_balik"/>
 
-    <TextView
+    <EditText
+
         android:id="@+id/tvTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ivTree"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
+        android:background="@android:color/transparent"
+        android:cursorVisible="false"
+        android:imeOptions="actionDone"
+        android:inputType="number"
         android:text="25:00"
-        android:textSize="48sp"/>
+        android:textColor="#000000"
+        android:textSize="48sp" />
+
 
     <LinearLayout
         android:id="@+id/buttonContainer"
@@ -100,8 +108,6 @@
             android:backgroundTint="#5B2EFF" />
     </LinearLayout>
 
-    <!-- android:backgroundTint="@color/gereken_mavi"-->
-    <!-- android:textColor="@color/black" -->
     <TextView
         android:id="@+id/tvMotivasyon"
         android:layout_width="match_parent"
