@@ -26,7 +26,6 @@
     <string name="fill_all_fields">Please fill all fields</string>
     <string name="registration_successful">Registration successful</string>
     <string name="registration_failed">Registration failed</string>
-    <string name="firestore_registration_failed">Failed to register to Firestore</string>
 
     <!-- Menu -->
     <string name="menuStatistics">Statistics</string>
@@ -66,7 +65,7 @@
     <string name="btnLogout">Log Out</string>
 
     <!-- Badges -->
-    <string name="new_badge_earned">You've earned new badge(s)!</string>
+    <string name="new_badge_earned">You have earned new badge(s)!</string>
     <string name="rozetName">Sea Badge</string>
     <string name="rozetStatus">Earned</string>
     <string name="badge_denizati">Seahorse Badge</string>
@@ -77,14 +76,26 @@
     <string name="badge_dalga">Wave Badge</string>
     <string name="badge_kaplumbaga">Turtle Badge</string>
     <string name="badge_denizyildizi">Starfish Badge</string>
+    <string name="badge_earned">Earned</string>
+    <string name="badge_not_earned">Not Earned</string>
 
     <!-- Fish Types -->
-    <string name="fish_astronot">Astronaut</string>
-    <string name="fish_palyaco">Clownfish</string>
-    <string name="fish_diskus">Discus</string>
-    <string name="fish_japon">Japanese</string>
-    <string name="fish_moli">Molly</string>
-    <string name="fish_melek">Angelfish</string>
-    <string name="fish_beta">Betta</string>
-    <string name="fish_papagan">Parrotfish</string>
+    <string name="fish_astronot">Astronaut Fish</string>
+    <string name="fish_palyaco">Clown Fish</string>
+    <string name="fish_diskus">Discus Fish</string>
+    <string name="fish_japon">Japanese Fish</string>
+    <string name="fish_moli">Molly Fish</string>
+    <string name="fish_melek">Angel Fish</string>
+    <string name="fish_beta">Betta Fish</string>
+    <string name="fish_papagan">Parrot Fish</string>
+
+    <string name="motivation_1">Every new day is a new beginning.</string>
+    <string name="motivation_2">Use today to get one step closer to your dreams.</string>
+    <string name="motivation_3">Small steps bring big changes.</string>
+    <string name="motivation_4">Now is the best time to start.</string>
+    <string name="motivation_5">Focus today, be proud tomorrow.</string>
+    <string name="motivation_6">Just keep trying.</string>
+    <string name="motivation_7">Consistency brings success.</string>
+    <string name="motivation_8">You can do it!</string>
+
 </resources>

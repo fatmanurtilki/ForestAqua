@@ -31,7 +31,6 @@ class ArkaPlanRenkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         applySavedBackgroundColor()
-        setupLanguageButtons()
 
         binding.backButton.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -50,24 +49,6 @@ class ArkaPlanRenkFragment : Fragment() {
         binding.colorSari.setOnClickListener {
             SharedPreferencesUtils.setBackgroundColor(requireContext(), "gereken_sari")
             applySavedBackgroundColor()
-        }
-    }
-
-    private fun setupLanguageButtons() {
-        binding.langTurkish.setOnClickListener {
-            changeLanguage("tr")
-        }
-
-        binding.langEnglish.setOnClickListener {
-            changeLanguage("en")
-        }
-    }
-
-    private fun changeLanguage(langCode: String) {
-        val currentLang = SharedPreferencesUtils.getAppLanguage(requireContext())
-        if (currentLang != langCode) {
-            SharedPreferencesUtils.setAppLanguage(requireContext(), langCode)
-            requireActivity().recreate()
         }
     }
 

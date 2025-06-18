@@ -49,14 +49,14 @@ class TimerFragment : Fragment() {
 
     // ✅ MOTİVASYONLAR
     private val motivasyonListesi = listOf(
-        "Her yeni gün yeni bir başlangıçtır.",
-        "Hayallerine bir adım daha yaklaşmak için bugünü kullan.",
-        "Küçük adımlar büyük değişimler getirir.",
-        "Şu an başlamak için en iyi zamandır.",
-        "Bugün odaklan, yarın gurur duy.",
-        "Sadece denemeye devam et.",
-        "İstikrar başarıyı getirir.",
-        "Sen yapabilirsin!"
+        getString(R.string.motivation_1),
+        getString(R.string.motivation_2),
+        getString(R.string.motivation_3),
+        getString(R.string.motivation_4),
+        getString(R.string.motivation_5),
+        getString(R.string.motivation_6),
+        getString(R.string.motivation_7),
+        getString(R.string.motivation_8)
     )
     private val motivasyonHandler = Handler()
     private lateinit var motivasyonRunnable: Runnable

@@ -27,7 +27,10 @@ class RozetAdapter(
         val earned = earnedRozets.contains(name)
         holder.name.text = name
         holder.image.setImageResource(drawables[name] ?: R.drawable.rozet_gemi)
-        holder.status.text = if (earned) "Kazanıldı" else "Kazanılmadı"
+        holder.status.text = if (earned)
+            holder.itemView.context.getString(R.string.badge_earned)
+        else
+            holder.itemView.context.getString(R.string.badge_not_earned)
         holder.image.alpha = if (earned) 1f else 0.3f
     }
 

@@ -23,7 +23,6 @@
     <string name="fill_all_fields">Tüm alanları doldurun</string>
     <string name="registration_successful">Kayıt başarılı</string>
     <string name="registration_failed">Kayıt başarısız</string>
-    <string name="firestore_registration_failed">Firestore'a kayıt başarısız</string>
 
     <string name="menuStatistics">İstatistikler</string>
     <string name="menuRozet">Rozetler</string>
@@ -66,6 +65,8 @@
     <string name="badge_dalga">Dalga Rozeti</string>
     <string name="badge_kaplumbaga">Kaplumbağa Rozeti</string>
     <string name="badge_denizyildizi">Deniz Yıldızı Rozeti</string>
+    <string name="badge_earned">Kazanıldı</string>
+    <string name="badge_not_earned">Kazanılmadı</string>
 
     <string name="fish_astronot">Astronot</string>
     <string name="fish_palyaco">Palyaço</string>
@@ -76,5 +77,13 @@
     <string name="fish_beta">Beta</string>
     <string name="fish_papagan">Papağan</string>
 
+    <string name="motivation_1">Her yeni gün yeni bir başlangıçtır.</string>
+    <string name="motivation_2">Hayallerine bir adım daha yaklaşmak için bugünü kullan.</string>
+    <string name="motivation_3">Küçük adımlar büyük değişimler getirir.</string>
+    <string name="motivation_4">Şu an başlamak için en iyi zamandır.</string>
+    <string name="motivation_5">Bugün odaklan, yarın gurur duy.</string>
+    <string name="motivation_6">Sadece denemeye devam et.</string>
+    <string name="motivation_7">İstikrar başarıyı getirir.</string>
+    <string name="motivation_8">Sen yapabilirsin!</string>
 
 </resources>
