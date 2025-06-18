@@ -5,15 +5,17 @@ import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.forestapp.R
+import com.example.forestapp.TreeType
 import com.example.forestapp.databinding.FragmentStatisticsBinding
+import com.example.forestapp.util.SharedPreferencesUtils
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.example.forestapp.TreeType
 
 class StatisticsFragment : Fragment() {
 
@@ -29,6 +31,7 @@ class StatisticsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        applyBackgroundColor()
 
         binding.rbDay.setOnClickListener { drawStaticChart(FilterType.DAY) }
         binding.rbWeek.setOnClickListener { drawStaticChart(FilterType.WEEK) }
@@ -58,9 +61,9 @@ class StatisticsFragment : Fragment() {
             FilterType.DAY -> {
                 labels = (0..23).map { "$it:00" }
                 values = listOf(
-                    0, 0, 0, 0, 0, 0, 0, 0,   // 00-07
-                    0, 0, 1, 0, 2, 0, 3, 0,   // 08-15
-                    2, 0, 0, 0, 0, 0, 0, 0    // 16-23
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 1, 0, 2, 0, 3, 0,
+                    2, 0, 0, 0, 0, 0, 0, 0
                 )
                 dayTotal = values.sum()
                 dayFishCount = dayTotal / 3
@@ -69,7 +72,7 @@ class StatisticsFragment : Fragment() {
 
             FilterType.WEEK -> {
                 labels = listOf("Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz")
-                values = listOf(1, 3, 0, 4, 2, 3, 1)   // zaten sabitti
+                values = listOf(1, 3, 0, 4, 2, 3, 1)
                 weekTotal = values.sum()
                 weekFishCount = weekTotal / 3
                 currentFishCount = weekFishCount + dayFishCount
@@ -90,7 +93,7 @@ class StatisticsFragment : Fragment() {
             FilterType.YEAR -> {
                 labels = listOf("Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu",
                     "Eyl", "Eki", "Kas", "Ara")
-                values = listOf(2, 1, 3, 0, 2, 4, 1, 2, 3, 1, 2, 4)  // zaten sabitti
+                values = listOf(2, 1, 3, 0, 2, 4, 1, 2, 3, 1, 2, 4)
                 yearTotal = values.sum()
                 yearFishCount = yearTotal / 3
                 currentFishCount = yearFishCount + monthFishCount
@@ -103,7 +106,9 @@ class StatisticsFragment : Fragment() {
             BarEntry(index.toFloat() + 0.5f, value.toFloat())
         }
 
-        val dataSet = BarDataSet(entries, "Odak Süresi (dk)").apply {
+        val labelText = getString(R.string.focus_time_label) // <-- localization
+
+        val dataSet = BarDataSet(entries, labelText).apply {
             color = Color.parseColor("#008577")
         }
 
@@ -196,9 +201,6 @@ class StatisticsFragment : Fragment() {
         }
     }
 
-
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -206,5 +208,14 @@ class StatisticsFragment : Fragment() {
 
     enum class FilterType {
         DAY, WEEK, MONTH, YEAR
+    }
+    private fun applyBackgroundColor() {
+        val colorName = SharedPreferencesUtils.getBackgroundColor(requireContext())
+        val colorResId = when (colorName) {
+            "gereken_pembe" -> R.color.gereken_pembe
+            "gereken_sari" -> R.color.gereken_sari
+            else -> R.color.gereken_mavi
+        }
+        binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
     }
 }

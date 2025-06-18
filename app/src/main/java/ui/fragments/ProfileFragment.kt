@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.forestapp.LoginActivity
 import com.example.forestapp.R
@@ -48,5 +49,14 @@ class ProfileFragment : Fragment() {
             Toplam Balık: ${user.treesPlanted}
             Coin Miktarı: ${user.coins}
         """.trimIndent()
+    }
+    private fun applyBackgroundColor(view: View) {
+        val colorName = SharedPreferencesUtils.getBackgroundColor(requireContext())
+        val colorResId = when (colorName) {
+            "gereken_pembe" -> R.color.gereken_pembe
+            "gereken_sari" -> R.color.gereken_sari
+            else -> R.color.gereken_mavi
+        }
+        view.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
     }
 }

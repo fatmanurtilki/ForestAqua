@@ -1,9 +1,80 @@
 <resources>
     <string name="app_name">Forest App</string>
-    <string name="start">Start</string>
-    <string name="pause">Pause</string>
-    <string name="tree_oak">Oak</string>
-    <string name="timer">Timer</string>
-    <string name="forest">Forest</string>
-    <string name="profile">Profile</string>
+    <string name="start">Başla</string>
+    <string name="pause">Duraklat</string>
+    <string name="tree_oak">Meşe</string>
+    <string name="timer">Zamanlayıcı</string>
+    <string name="forest">Orman</string>
+    <string name="profile">Profil</string>
+
+    <string name="rbEmail">Email ile Giriş</string>
+    <string name="rbUsername">Kullanıcı Adı ile Giriş</string>
+    <string name="etIdentifier">Email</string>
+    <string name="etPassword">Şifre</string>
+    <string name="btnSignIn">Giriş Yap</string>
+    <string name="btnSignUp">Kayıt Ol</string>
+    <string name="login_failed">Giriş başarısız</string>
+
+    <string name="etName">Ad Soyad</string>
+    <string name="etUsername">Kullanıcı Adı</string>
+    <string name="etEmail">Email</string>
+    <string name="btnRegisterLayout">Kayıt Ol</string>
+    <string name="btnBackLayout">Geri Dön</string>
+    <string name="fill_all_fields">Tüm alanları doldurun</string>
+    <string name="registration_successful">Kayıt başarılı</string>
+    <string name="registration_failed">Kayıt başarısız</string>
+    <string name="firestore_registration_failed">Firestore'a kayıt başarısız</string>
+
+    <string name="menuStatistics">İstatistikler</string>
+    <string name="menuRozet">Rozetler</string>
+    <string name="menuSettings">Ayarlar</string>
+    <string name="menuUser">Profil</string>
+
+    <string name="language_updated">Dil güncellendi</string>
+    <string name="language_already_selected">Bu dil zaten seçili</string>
+    <string name="langTurkish">Türkçe</string>
+    <string name="langEnglish">İngilizce</string>
+    <string name="buttonLanguage">Dil</string>
+
+    <string name="accestext">Erişimi Yasaklanacak Uygulamaları Seçiniz</string>
+    <string name="arkaplancolortext">Arka Plan Rengi Seçiniz</string>
+    <string name="buttonBackground">Arka Plan Rengi</string>
+    <string name="buttonAccess">Erişim Listesi</string>
+
+    <string name="buttonSound">Ses</string>
+
+    <string name="rbDay">Gün</string>
+    <string name="rbWeek">Hafta</string>
+    <string name="rbMonth">Ay</string>
+    <string name="rbYear">Yıl</string>
+
+    <string name="tvMotivasyon">Her yeni gün yeni bir başlangıçtır. Hayallerine bir adım daha yaklaşmak için bugünü kullan.</string>
+    <string name="btnTreeType">Balık Seç</string>
+    <string name="focus_time_label">Odak Süresi (dk)</string>
+
+    <string name="tvStats">İstatistik Verileri</string>
+    <string name="btnLogout">Hesabı Kapat</string>
+
+    <string name="new_badge_earned">Yeni rozet(ler) kazandınız!</string>
+    <string name="rozetName">Deniz Rozeti</string>
+    <string name="rozetStatus">Kazanıldı</string>
+    <string name="badge_denizati">Deniz Atı Rozeti</string>
+    <string name="badge_yelkenli">Yelkenli Rozeti</string>
+    <string name="badge_denizkabuk">Deniz Kabuğu Rozeti</string>
+    <string name="badge_inci">İnci Rozeti</string>
+    <string name="badge_denizalti">Denizaltı Rozeti</string>
+    <string name="badge_dalga">Dalga Rozeti</string>
+    <string name="badge_kaplumbaga">Kaplumbağa Rozeti</string>
+    <string name="badge_denizyildizi">Deniz Yıldızı Rozeti</string>
+
+    <string name="fish_astronot">Astronot</string>
+    <string name="fish_palyaco">Palyaço</string>
+    <string name="fish_diskus">Diskus</string>
+    <string name="fish_japon">Japon</string>
+    <string name="fish_moli">Moli</string>
+    <string name="fish_melek">Melek</string>
+    <string name="fish_beta">Beta</string>
+    <string name="fish_papagan">Papağan</string>
+
+
 </resources>

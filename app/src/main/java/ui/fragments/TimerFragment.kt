@@ -85,6 +85,7 @@ class TimerFragment : Fragment() {
         startMotivasyonDegisimi()
     }
 
+
     private fun setupUI() {
         updateTimerText()
 

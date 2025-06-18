@@ -6,6 +6,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.forestapp.model.User
 import com.example.forestapp.repository.UserRepository
+import com.example.forestapp.util.SharedPreferencesUtils
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
@@ -15,6 +16,8 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        SharedPreferencesUtils.applySavedLanguage(this)
+        SharedPreferencesUtils.applySavedBackgroundColor(this)
 
         auth = FirebaseAuth.getInstance()
 

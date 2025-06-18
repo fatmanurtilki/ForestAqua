@@ -1,0 +1,90 @@
+<resources>
+    <!-- General -->
+    <string name="app_name">Forest App</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="tree_oak">Oak</string>
+    <string name="timer">Timer</string>
+    <string name="forest">Forest</string>
+    <string name="profile">Profile</string>
+
+    <!-- Login Screen -->
+    <string name="rbEmail">Login with Email</string>
+    <string name="rbUsername">Login with Username</string>
+    <string name="etIdentifier">Email</string>
+    <string name="etPassword">Password</string>
+    <string name="btnSignIn">Sign In</string>
+    <string name="btnSignUp">Sign Up</string>
+    <string name="login_failed">Login failed</string>
+
+    <!-- Register Screen -->
+    <string name="etName">Full Name</string>
+    <string name="etUsername">Username</string>
+    <string name="etEmail">Email</string>
+    <string name="btnRegisterLayout">Register</string>
+    <string name="btnBackLayout">Go Back</string>
+    <string name="fill_all_fields">Please fill all fields</string>
+    <string name="registration_successful">Registration successful</string>
+    <string name="registration_failed">Registration failed</string>
+    <string name="firestore_registration_failed">Failed to register to Firestore</string>
+
+    <!-- Menu -->
+    <string name="menuStatistics">Statistics</string>
+    <string name="menuRozet">Badges</string>
+    <string name="menuSettings">Settings</string>
+    <string name="menuUser">Profile</string>
+
+    <!-- Language -->
+    <string name="language_updated">Language updated</string>
+    <string name="language_already_selected">This language is already selected</string>
+    <string name="langTurkish">Turkish</string>
+    <string name="langEnglish">English</string>
+    <string name="buttonLanguage">Language</string>
+
+    <!-- Background & Access -->
+    <string name="accestext">Select apps to restrict</string>
+    <string name="arkaplancolortext">Select background color</string>
+    <string name="buttonBackground">Background Color</string>
+    <string name="buttonAccess">Access List</string>
+
+    <!-- Sound -->
+    <string name="buttonSound">Sound</string>
+
+    <!-- Time Filters -->
+    <string name="rbDay">Day</string>
+    <string name="rbWeek">Week</string>
+    <string name="rbMonth">Month</string>
+    <string name="rbYear">Year</string>
+
+    <!-- TimerFragment -->
+    <string name="tvMotivasyon">Every day is a new beginning. Use today to get one step closer to your dreams.</string>
+    <string name="btnTreeType">Select Fish</string>
+    <string name="focus_time_label">Focus Time (min)</string>
+
+    <!-- ProfileFragment -->
+    <string name="tvStats">Statistics</string>
+    <string name="btnLogout">Log Out</string>
+
+    <!-- Badges -->
+    <string name="new_badge_earned">You've earned new badge(s)!</string>
+    <string name="rozetName">Sea Badge</string>
+    <string name="rozetStatus">Earned</string>
+    <string name="badge_denizati">Seahorse Badge</string>
+    <string name="badge_yelkenli">Sailboat Badge</string>
+    <string name="badge_denizkabuk">Seashell Badge</string>
+    <string name="badge_inci">Pearl Badge</string>
+    <string name="badge_denizalti">Submarine Badge</string>
+    <string name="badge_dalga">Wave Badge</string>
+    <string name="badge_kaplumbaga">Turtle Badge</string>
+    <string name="badge_denizyildizi">Starfish Badge</string>
+
+    <!-- Fish Types -->
+    <string name="fish_astronot">Astronaut</string>
+    <string name="fish_palyaco">Clownfish</string>
+    <string name="fish_diskus">Discus</string>
+    <string name="fish_japon">Japanese</string>
+    <string name="fish_moli">Molly</string>
+    <string name="fish_melek">Angelfish</string>
+    <string name="fish_beta">Betta</string>
+    <string name="fish_papagan">Parrotfish</string>
+</resources>

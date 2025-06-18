@@ -17,6 +17,8 @@ class RozetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRozetBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        SharedPreferencesUtils.applySavedLanguage(this)
+        SharedPreferencesUtils.applySavedBackgroundColor(this)
 
         val userId = SharedPreferencesUtils.getUserId(this)
         userRepo.getUserById(userId) { user ->

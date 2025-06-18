@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gereken_mavi"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/icon_back"
+        android:contentDescription="Geri"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/accestext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Erişimi Yasaklanacak Uygulamaları Seçiniz"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Uygulama Checkbox Listesi -->
+    <CheckBox
+        android:id="@+id/cbTiktok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TikTok" />
+    <CheckBox
+        android:id="@+id/cbInstagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Instagram" />
+    <CheckBox
+        android:id="@+id/cbFacebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Facebook" />
+    <CheckBox
+        android:id="@+id/cbSnapchat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Snapchat" />
+    <CheckBox
+        android:id="@+id/cbPinterest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pinterest" />
+    <CheckBox
+        android:id="@+id/cbTwitter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Twitter" />
+    <CheckBox
+        android:id="@+id/cbDiscord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discord" />
+    <CheckBox
+        android:id="@+id/cbTwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Twitch" />
+    <CheckBox
+        android:id="@+id/cbLinkedin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LinkedIn" />
+
+</LinearLayout>
