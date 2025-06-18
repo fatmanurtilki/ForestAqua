@@ -15,27 +15,36 @@
     <string name="lgkayitbt">Kayıt Ol</string>
     <string name="login_failed">Giriş başarısız</string>
 
-    <string name="fill_all_fields">Tüm alanları doldurun</string>
+    <string name="rgad_soyad">Ad Soyad</string>
+    <string name="rgkullaniciad">Kullanıcı Adı</string>
+    <string name="rgEmail">Email</string>
+    <string name="rgkayitol">Kayıt Ol</string>
+    <string name="rgsifre">Şifre</string>
+    <string name="rgGeri">Geri Dön</string>
+-     <string name="fill_all_fields">Tüm alanları doldurun</string>
     <string name="registration_successful">Kayıt başarılı</string>
     <string name="registration_failed">Kayıt başarısız</string>
 
-    <string name="menuStatistics">İstatistikler</string>
-    <string name="menuRozet">Rozetler</string>
-    <string name="menuSettings">Ayarlar</string>
-    <string name="menuUser">Profil</string>
+    <string name="fristatis">İstatistikler</string>
+    <string name="frrozet">Rozetler</string>
+    <string name="frAyarlar">Ayarlar</string>
+    <string name="frUser">Profil</string>
+
+    <string name="diltext">Dil seçiniz</string>
 
     <string name="language_updated">Dil güncellendi</string>
     <string name="language_already_selected">Bu dil zaten seçili</string>
-    <string name="langTurkish">Türkçe</string>
-    <string name="langEnglish">İngilizce</string>
-    <string name="buttonLanguage">Dil</string>
+    <string name="diltr">▶ Türkçe</string>
+    <string name="dilue">▶ İngilizce</string>
+    <string name="stDil">Dil</string>
 
-    <string name="accestext">Erişimi Yasaklanacak Uygulamaları Seçiniz</string>
-    <string name="arkaplancolortext">Arka Plan Rengi Seçiniz</string>
-    <string name="buttonBackground">Arka Plan Rengi</string>
-    <string name="buttonAccess">Erişim Listesi</string>
 
-    <string name="buttonSound">Ses</string>
+    <string name="rgerisimtext">Erişimi Yasaklanacak Uygulamaları Seçiniz</string>
+    <string name="rgarkaplantext">Arka Plan Rengi Seçiniz</string>
+    <string name="stbackcolor">Arka Plan Rengi</string>
+    <string name="sterisimlist">Erişim Listesi</string>
+
+    <string name="stSes">Ses</string>
 
     <string name="rbDay">Gün</string>
     <string name="rbWeek">Hafta</string>

@@ -15,46 +15,40 @@
     <string name="lgkayitbt">Sign Up</string>
     <string name="login_failed">Login failed</string>
 
-    <!-- Register Screen -->
-    <string name="etName">Full Name</string>
-    <string name="etUsername">Username</string>
-    <string name="etEmail">Email</string>
-    <string name="btnRegisterLayout">Register</string>
-    <string name="btnBackLayout">Go Back</string>
-    <string name="fill_all_fields">Please fill all fields</string>
+    <string name="rgad_soyad">Full Name</string>
+    <string name="rgkullaniciad">Username</string>
+    <string name="rgEmail">Email</string>
+    <string name="rgkayitol">Sign Up</string>
+    <string name="rgsifre">Password</string>
+    <string name="rgGeri">Go Back</string>
+    <string name="fill_all_fields">Please fill in all fields</string>
     <string name="registration_successful">Registration successful</string>
     <string name="registration_failed">Registration failed</string>
 
-    <!-- Menu -->
-    <string name="menuStatistics">Statistics</string>
-    <string name="menuRozet">Badges</string>
-    <string name="menuSettings">Settings</string>
+    <string name="fristatis">Statistics</string>
+    <string name="frrozet">Badges</string>
+    <string name="frAyarlar">Settings</string>
+    <string name="frUser">Profile</string>
 
-    <!-- Language -->
     <string name="language_updated">Language updated</string>
     <string name="language_already_selected">This language is already selected</string>
-    <string name="langTurkish">Turkish</string>
-    <string name="langEnglish">English</string>
-    <string name="buttonLanguage">Language</string>
+    <string name="diltr">▶ Turkish</string>
+    <string name="dilue">▶ English</string>
+    <string name="stDil">Language</string>
 
-    <!-- Background & Access -->
-    <string name="accestext">Select apps to restrict</string>
     <string name="rgerisimtext">Select Apps to Block Access</string>
     <string name="rgarkaplantext">Select Background Color</string>
     <string name="stbackcolor">Background Color</string>
     <string name="sterisimlist">Access List</string>
 
-    <!-- Sound -->
-    <string name="buttonSound">Sound</string>
+    <string name="stSes">Sound</string>
 
-    <!-- Time Filters -->
     <string name="rbDay">Day</string>
     <string name="rbWeek">Week</string>
     <string name="rbMonth">Month</string>
     <string name="rbYear">Year</string>
 
-    <!-- TimerFragment -->
-    <string name="tvMotivasyon">Every day is a new beginning. Use today to get one step closer to your dreams.</string>
+    <string name="tvMotivasyon">Every new day is a new beginning. Use today to get one step closer to your dreams.</string>
     <string name="btnTreeType">Select Fish</string>
     <string name="focus_time_label">Focus Time (min)</string>
 
