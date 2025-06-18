@@ -52,4 +52,15 @@ class UserRepository {
             }
         }
     }
+
+    // 🌱 YENİ: Her 25 dakikada bir ağaç (balık) artırma fonksiyonu
+    fun incrementTreeCount(userId: String) {
+        userCollection.document(userId).get().addOnSuccessListener {
+            val user = it.toObject(User::class.java)
+            user?.let {
+                it.treesPlanted += 1
+                updateUser(userId, it)
+            }
+        }
+    }
 }

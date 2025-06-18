@@ -9,6 +9,5 @@ data class User(
     var coins: Int = 0,
     var totalFocusTime: Int = 0,
     var treesPlanted: Int = 0,
-    var realTreesPlanted: Int = 0,
     var dailyGoal: Int = 25
 )

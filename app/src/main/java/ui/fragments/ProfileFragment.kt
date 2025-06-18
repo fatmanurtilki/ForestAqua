@@ -46,7 +46,7 @@ class ProfileFragment : Fragment() {
         tvStats.text = """
             Odak Süresi: ${user.totalFocusTime} dk
             Toplam Balık: ${user.treesPlanted}
-            Günlük Hedef: ${user.dailyGoal} dk
+            Coin Miktarı: ${user.coins}
         """.trimIndent()
     }
 }

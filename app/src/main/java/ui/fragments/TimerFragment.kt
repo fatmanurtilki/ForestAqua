@@ -212,9 +212,9 @@ class TimerFragment : Fragment() {
                 userId = userId
             )
             sessionRepository.insertSession(session)
-            userRepository.addCoins(userId, minutes.toInt() * 20)
+            userRepository.addCoins(userId, minutes.toInt() * 2)
             userRepository.addFocusTime(userId, minutes.toInt())
-            Toast.makeText(requireContext(), "${minutes * 20} coin kazandınız!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "${minutes * 2} coin kazandınız!", Toast.LENGTH_SHORT).show()
         }
 
         resetTimer()
@@ -278,7 +278,11 @@ class TimerFragment : Fragment() {
         val userId = SharedPreferencesUtils.getUserId(requireContext())
         userRepository.getUserById(userId) { user ->
             user?.let {
-                binding.tvCoins.text = "Coins: ${it.coins}"
+                binding.tvCoins.text = """
+                Coins: ${it.coins}
+                Odak Süresi: ${it.totalFocusTime} dk
+                Toplam Balık: ${it.treesPlanted}
+            """.trimIndent()
             }
         }
     }

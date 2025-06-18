@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Akvaryum görselleştirmesi eklenecek daha düzenlenmeler yapılacak!!!! -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="@color/gereken_mavi"
@@ -52,20 +51,24 @@
             android:text="Yıl" />
     </RadioGroup>
 
-
-    <ImageView
-        android:id="@+id/ivAquarium"
+    <FrameLayout
+        android:id="@+id/flAquariumContainer"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/glass_jar"
-        android:scaleType="fitCenter"
-        android:layout_marginTop="12dp" />
+        android:layout_height="300dp"
+        android:layout_marginTop="12dp">
 
+        <ImageView
+            android:id="@+id/ivAquarium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/akvaryum_buyuk"
+            android:scaleType="fitCenter" />
+    </FrameLayout>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="12dp" />
 
 </LinearLayout>
