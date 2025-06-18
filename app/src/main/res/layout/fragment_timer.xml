@@ -21,8 +21,9 @@
             android:id="@+id/tvCoins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="18sp" />
+            android:text="Coins: 80\nOdak Süresi: 100 dk\nToplam Balık: 20"
+            android:visibility="gone" />
+
     </LinearLayout>
 
     <Spinner
