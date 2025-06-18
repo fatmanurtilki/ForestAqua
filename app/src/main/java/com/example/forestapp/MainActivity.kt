@@ -1,9 +1,12 @@
 package com.example.forestapp
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.forestapp.databinding.ActivityMainBinding
+import com.example.forestapp.util.SharedPreferencesUtils
 import ui.fragments.ForestFragment
 import ui.fragments.TimerFragment
 
@@ -15,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val rootView: View = findViewById(android.R.id.content)
+        SharedPreferencesUtils.applySavedBackgroundColor(this, rootView)
         setupBottomNavigation()
         loadFragment(TimerFragment())
     }
@@ -35,5 +40,10 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragment_container, fragment)
             .commit()
         return true
+    }
+    override fun attachBaseContext(newBase: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(newBase)
+        val contextWithLocale = LanguageHelper.setLocale(newBase, lang)
+        super.attachBaseContext(contextWithLocale)
     }
 }

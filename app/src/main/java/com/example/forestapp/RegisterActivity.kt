@@ -1,7 +1,9 @@
 package com.example.forestapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.forestapp.model.User
@@ -16,9 +18,8 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        SharedPreferencesUtils.applySavedLanguage(this)
-        SharedPreferencesUtils.applySavedBackgroundColor(this)
-
+        val rootView: View = findViewById(android.R.id.content)
+        SharedPreferencesUtils.applySavedBackgroundColor(this, rootView)
         auth = FirebaseAuth.getInstance()
 
         val etName = findViewById<EditText>(R.id.etName)
@@ -68,5 +69,10 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+    }
+    override fun attachBaseContext(newBase: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(newBase)
+        val contextWithLocale = LanguageHelper.setLocale(newBase, lang)
+        super.attachBaseContext(contextWithLocale)
     }
 }

@@ -1,5 +1,6 @@
 package ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.core.content.ContextCompat
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.forestapp.R
 import com.example.forestapp.databinding.FragmentSettingsBinding
 import com.example.forestapp.util.SharedPreferencesUtils
+import com.example.forestapp.LanguageHelper
 
 class SettingsFragment : Fragment() {
 
@@ -48,6 +50,7 @@ class SettingsFragment : Fragment() {
         }
 
         binding.buttonSound.setOnClickListener {
+            // Ses ayarları fragmenti buraya eklenebilir.
         }
     }
 
@@ -64,5 +67,9 @@ class SettingsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    override fun onAttach(context: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(context)
+        super.onAttach(LanguageHelper.setLocale(context, lang))
     }
 }

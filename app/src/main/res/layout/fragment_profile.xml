@@ -18,7 +18,7 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kullanıcı Adı"
+        android:text="@string/prname"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
@@ -28,7 +28,7 @@
         android:id="@+id/tvStats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="İstatistik Verileri"
+        android:text="@string/prveri"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:layout_marginBottom="24dp" />
@@ -37,7 +37,7 @@
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hesabı Kapat"
+        android:text="prcikis"
         android:backgroundTint="@color/white"
         android:textColor="@android:color/black"
         android:padding="10dp" />

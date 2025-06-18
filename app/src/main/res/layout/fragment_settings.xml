@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Arka Plan Rengi"
+                android:text="@string/stbackcolor"
                 android:textStyle="bold"
                 android:paddingStart="12dp"
                 android:textSize="16sp" />
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Erişim Listesi"
+                android:text="@string/sterisimlist"
                 android:textStyle="bold"
                 android:paddingStart="12dp"
                 android:textSize="16sp" />
@@ -67,7 +67,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dil"
+                android:text="@string/stDil"
                 android:textStyle="bold"
                 android:paddingStart="12dp"
                 android:textSize="16sp" />
@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ses"
+                android:text="@string/stSes"
                 android:textStyle="bold"
                 android:paddingStart="12dp"
                 android:textSize="16sp" />

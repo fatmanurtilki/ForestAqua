@@ -1,5 +1,6 @@
 package ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -8,11 +9,13 @@ import androidx.fragment.app.Fragment
 import com.example.forestapp.*
 import com.example.forestapp.databinding.FragmentForestBinding
 import com.example.forestapp.util.SharedPreferencesUtils
+import com.example.forestapp.LanguageHelper
 
 class ForestFragment : Fragment() {
 
     private var _binding: FragmentForestBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentForestBinding.inflate(inflater, container, false)
@@ -22,7 +25,7 @@ class ForestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        applyBackgroundColor()
+        applySavedBackgroundColor()
 
         binding.menuAchievements.setOnClickListener {
             startActivity(Intent(requireContext(), RozetActivity::class.java))
@@ -41,9 +44,16 @@ class ForestFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        binding.menuSettings.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, SettingsFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
-    private fun applyBackgroundColor() {
+    private fun applySavedBackgroundColor() {
         val colorName = SharedPreferencesUtils.getBackgroundColor(requireContext())
         val colorResId = when (colorName) {
             "gereken_pembe" -> R.color.gereken_pembe
@@ -56,5 +66,9 @@ class ForestFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    override fun onAttach(context: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(context)
+        super.onAttach(LanguageHelper.setLocale(context, lang))
     }
 }

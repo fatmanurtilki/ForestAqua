@@ -1,5 +1,6 @@
 package ui.fragments
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
@@ -7,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.forestapp.LanguageHelper
 import com.example.forestapp.R
 import com.example.forestapp.TreeType
 import com.example.forestapp.databinding.FragmentStatisticsBinding
@@ -21,6 +23,10 @@ class StatisticsFragment : Fragment() {
 
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = _binding!!
+
+    enum class FilterType {
+        DAY, WEEK, MONTH, YEAR
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,77 +48,40 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun drawStaticChart(filter: FilterType) {
-        val labels: List<String>
-        val values: List<Int>
-
-        var dayTotal = 0
-        var weekTotal = 0
-        var monthTotal = 0
-        var yearTotal = 0
-
-        var dayFishCount = 0
-        var weekFishCount = 0
-        var monthFishCount = 0
-        var yearFishCount = 0
-
-        var currentFishCount = 0
-
-        when (filter) {
+        val (labels, values, fishCount) = when (filter) {
             FilterType.DAY -> {
-                labels = (0..23).map { "$it:00" }
-                values = listOf(
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 1, 0, 2, 0, 3, 0,
-                    2, 0, 0, 0, 0, 0, 0, 0
-                )
-                dayTotal = values.sum()
-                dayFishCount = dayTotal / 3
-                currentFishCount = dayFishCount
+                val vals = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 3, 0, 2, 0, 0, 0, 0, 0, 0, 0)
+                Triple((0..23).map { "$it:00" }, vals, vals.sum() / 3)
             }
-
             FilterType.WEEK -> {
-                labels = listOf("Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz")
-                values = listOf(1, 3, 0, 4, 2, 3, 1)
-                weekTotal = values.sum()
-                weekFishCount = weekTotal / 3
-                currentFishCount = weekFishCount + dayFishCount
+                val vals = listOf(1, 3, 0, 4, 2, 3, 1)
+                Triple(listOf("Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"), vals, vals.sum() / 3)
             }
-
             FilterType.MONTH -> {
-                labels = (1..30).map { it.toString() }
-                values = listOf(
+                val vals = listOf(
                     0, 0, 0, 1, 0, 2, 4, 3, 2, 1,
                     2, 2, 0, 0, 1, 1, 0, 1, 1, 0,
                     1, 1, 2, 1, 0, 2, 0, 0, 0, 2
                 )
-                monthTotal = values.sum()
-                monthFishCount = monthTotal / 5
-                currentFishCount = monthFishCount + weekFishCount
+                Triple((1..30).map { it.toString() }, vals, vals.sum() / 5)
             }
-
             FilterType.YEAR -> {
-                labels = listOf("Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu",
-                    "Eyl", "Eki", "Kas", "Ara")
-                values = listOf(2, 1, 3, 0, 2, 4, 1, 2, 3, 1, 2, 4)
-                yearTotal = values.sum()
-                yearFishCount = yearTotal / 3
-                currentFishCount = yearFishCount + monthFishCount
+                val vals = listOf(2, 1, 3, 0, 2, 4, 1, 2, 3, 1, 2, 4)
+                Triple(
+                    listOf("Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"),
+                    vals, vals.sum() / 3
+                )
             }
         }
 
-        displayFishes(currentFishCount)
+        displayFishes(fishCount)
 
-        val entries = values.mapIndexed { index, value ->
-            BarEntry(index.toFloat() + 0.5f, value.toFloat())
-        }
+        val entries = values.mapIndexed { index, value -> BarEntry(index.toFloat() + 0.5f, value.toFloat()) }
+        val labelText = getString(R.string.focus_time_label)
 
-        val labelText = getString(R.string.focus_time_label) // <-- localization
-
-        val dataSet = BarDataSet(entries, labelText).apply {
-            color = Color.parseColor("#008577")
-        }
-
-        val barData = BarData(dataSet).apply {
+        val barData = BarData(
+            BarDataSet(entries, labelText).apply { color = Color.parseColor("#008577") }
+        ).apply {
             barWidth = 0.7f
             setValueTextSize(10f)
         }
@@ -129,29 +98,22 @@ class StatisticsFragment : Fragment() {
             xAxis.apply {
                 position = XAxis.XAxisPosition.BOTTOM
                 granularity = 1f
-                setGranularityEnabled(true)
                 valueFormatter = IndexAxisValueFormatter(labels)
                 setDrawGridLines(false)
                 axisMinimum = 0f
                 axisMaximum = labels.size.toFloat()
-                setCenterAxisLabels(false)
-                setLabelCount(labels.size, false)
                 labelRotationAngle = -45f
                 textSize = 10f
-                yOffset = 10f
             }
 
             axisLeft.apply {
                 axisMinimum = 0f
-                setDrawGridLines(false)
                 granularity = 1f
                 textSize = 10f
-                axisLineWidth = 1f
             }
 
             axisRight.isEnabled = false
             legend.isEnabled = false
-
             extraBottomOffset = 10f
             setVisibleXRangeMaximum(labels.size.toFloat())
             moveViewToX(0f)
@@ -174,8 +136,7 @@ class StatisticsFragment : Fragment() {
             val allTypes = TreeType.getAllTypes()
 
             for (i in 0 until fishCount) {
-                val fishType = allTypes.random()
-                val drawableId = TreeType.treeDrawables[fishType] ?: R.drawable.beta_balik
+                val drawableId = TreeType.treeDrawables[allTypes.random()] ?: R.drawable.beta_balik
 
                 val fish = ImageView(requireContext()).apply {
                     setImageResource(drawableId)
@@ -201,14 +162,6 @@ class StatisticsFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    enum class FilterType {
-        DAY, WEEK, MONTH, YEAR
-    }
     private fun applyBackgroundColor() {
         val colorName = SharedPreferencesUtils.getBackgroundColor(requireContext())
         val colorResId = when (colorName) {
@@ -217,5 +170,14 @@ class StatisticsFragment : Fragment() {
             else -> R.color.gereken_mavi
         }
         binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    override fun onAttach(context: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(context)
+        super.onAttach(LanguageHelper.setLocale(context, lang))
     }
 }

@@ -1,9 +1,12 @@
 package com.example.forestapp.util
 
 import android.content.Context
-import com.example.forestapp.LanguageHelper
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.example.forestapp.LanguageHelper
 import com.example.forestapp.R
+
 object SharedPreferencesUtils {
     private const val PREFS_NAME = "ForestPrefs"
     private const val KEY_LOGGED_IN = "isLoggedIn"
@@ -35,6 +38,8 @@ object SharedPreferencesUtils {
     fun clearPreferences(context: Context) {
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             .edit().clear().apply()
+        context.getSharedPreferences(SETTINGS_PREFS, Context.MODE_PRIVATE)
+            .edit().clear().apply()
     }
     fun setAppLanguage(context: Context, langCode: String) {
         val prefs = context.getSharedPreferences(SETTINGS_PREFS, Context.MODE_PRIVATE)
@@ -61,14 +66,15 @@ object SharedPreferencesUtils {
         return prefs.getString(KEY_BACKGROUND_COLOR, "gereken_mavi") ?: "gereken_mavi"
     }
 
-    fun applySavedBackgroundColor(activity: AppCompatActivity) {
-        val colorName = getBackgroundColor(activity)
-        val colorRes = when (colorName) {
-            "gereken_mavi" -> R.color.gereken_mavi
-            "gereken_sari" -> R.color.gereken_sari
+    fun getBackgroundColorRes(context: Context): Int {
+        return when (getBackgroundColor(context)) {
             "gereken_pembe" -> R.color.gereken_pembe
+            "gereken_sari" -> R.color.gereken_sari
             else -> R.color.gereken_mavi
         }
-        activity.window.decorView.setBackgroundColor(activity.getColor(colorRes))
+    }
+    fun applySavedBackgroundColor(context: Context, view: View) {
+        val colorRes = getBackgroundColorRes(context)
+        view.setBackgroundColor(ContextCompat.getColor(context, colorRes))
     }
 }

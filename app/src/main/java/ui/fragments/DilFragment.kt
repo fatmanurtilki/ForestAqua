@@ -1,5 +1,6 @@
 package ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -20,32 +21,39 @@ class DilFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDilBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        applyBackgroundColor()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        applySavedBackgroundColor()
 
         binding.backButton.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
         binding.langTurkish.setOnClickListener {
-            updateLanguage("tr")
+            changeLanguage("tr")
         }
 
         binding.langEnglish.setOnClickListener {
-            updateLanguage("en")
+            changeLanguage("en")
         }
-
-        return binding.root
     }
 
-    private fun updateLanguage(langCode: String) {
-        SharedPreferencesUtils.setAppLanguage(requireContext(), langCode)
-        LanguageHelper.setLocale(requireContext(), langCode)
-        Toast.makeText(requireContext(), "Language updated", Toast.LENGTH_SHORT).show()
-        requireActivity().recreate()
+    private fun changeLanguage(langCode: String) {
+        val currentLang = SharedPreferencesUtils.getAppLanguage(requireContext())
+        if (currentLang != langCode) {
+            SharedPreferencesUtils.setAppLanguage(requireContext(), langCode)
+            Toast.makeText(requireContext(), getString(R.string.language_updated), Toast.LENGTH_SHORT).show()
+            requireActivity().recreate()
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.language_already_selected), Toast.LENGTH_SHORT).show()
+        }
     }
 
-    private fun applyBackgroundColor() {
+    private fun applySavedBackgroundColor() {
         val colorName = SharedPreferencesUtils.getBackgroundColor(requireContext())
         val colorResId = when (colorName) {
             "gereken_pembe" -> R.color.gereken_pembe
@@ -59,4 +67,9 @@ class DilFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+    override fun onAttach(context: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(context)
+        super.onAttach(LanguageHelper.setLocale(context, lang))
+    }
+
 }

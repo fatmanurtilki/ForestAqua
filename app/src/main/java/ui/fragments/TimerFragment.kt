@@ -47,17 +47,7 @@ class TimerFragment : Fragment() {
     private val FLOAT_AMPLITUDE = 15f
     private val FLOAT_DURATION = 4000L
 
-    // ✅ MOTİVASYONLAR
-    private val motivasyonListesi = listOf(
-        getString(R.string.motivation_1),
-        getString(R.string.motivation_2),
-        getString(R.string.motivation_3),
-        getString(R.string.motivation_4),
-        getString(R.string.motivation_5),
-        getString(R.string.motivation_6),
-        getString(R.string.motivation_7),
-        getString(R.string.motivation_8)
-    )
+    private lateinit var motivasyonListesi: List<String>
     private val motivasyonHandler = Handler()
     private lateinit var motivasyonRunnable: Runnable
 
@@ -74,6 +64,17 @@ class TimerFragment : Fragment() {
         sharedPreferences = requireContext().getSharedPreferences("ForestPrefs", Context.MODE_PRIVATE)
         selectedSound = sharedPreferences.getString("selectedSound", "forest") ?: "forest"
 
+        motivasyonListesi = listOf(
+            getString(R.string.motivation_1),
+            getString(R.string.motivation_2),
+            getString(R.string.motivation_3),
+            getString(R.string.motivation_4),
+            getString(R.string.motivation_5),
+            getString(R.string.motivation_6),
+            getString(R.string.motivation_7),
+            getString(R.string.motivation_8)
+        )
+
         setupUI()
         setupSoundSpinner()
         setupTimerEditText()
@@ -84,7 +85,6 @@ class TimerFragment : Fragment() {
 
         startMotivasyonDegisimi()
     }
-
 
     private fun setupUI() {
         updateTimerText()
@@ -247,7 +247,7 @@ class TimerFragment : Fragment() {
 
     private fun startSound() {
         val soundResId = when (selectedSound) {
-            "forest" -> R.raw.huzur
+            "forest" -> R.raw.forest
             "rain" -> R.raw.rainforest
             "sea" -> R.raw.ocean_waves
             else -> R.raw.cricket
@@ -272,8 +272,11 @@ class TimerFragment : Fragment() {
     }
 
     private fun updateTreeSelectionUI() {
-        binding.btnTreeType.text = currentTreeType
+        val labelResId = resources.getIdentifier(currentTreeType, "string", requireContext().packageName)
+        val label = getString(labelResId)
+        binding.btnTreeType.text = label
     }
+
 
     private fun updateUserInfo() {
         val userId = SharedPreferencesUtils.getUserId(requireContext())
@@ -321,18 +324,23 @@ class TimerFragment : Fragment() {
     }
 
     private fun showTreeSelectionDialog() {
+        val allTreeIds = TreeType.getAllTypes()
+        val treeNames = allTreeIds.map {
+            getString(resources.getIdentifier(it, "string", requireContext().packageName))
+        }
+
         AlertDialog.Builder(requireContext())
-            .setTitle("Balık Seç")
-            .setItems(TreeType.getAllTypes().toTypedArray()) { _, which ->
-                currentTreeType = TreeType.getAllTypes()[which]
+            .setTitle(getString(R.string.btnTreeType))
+            .setItems(treeNames.toTypedArray()) { _, which ->
+                currentTreeType = allTreeIds[which]
                 updateTreeSelectionUI()
                 binding.ivTree.setImageResource(getTreeImage(false))
             }
-            .setNegativeButton("İptal", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
-    // motivasyo loop
+
     private fun startMotivasyonDegisimi() {
         motivasyonRunnable = object : Runnable {
             override fun run() {

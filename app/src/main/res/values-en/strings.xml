@@ -1,5 +1,4 @@
 <resources>
-    <!-- General -->
     <string name="app_name">Forest App</string>
     <string name="start">Start</string>
     <string name="pause">Pause</string>
@@ -8,13 +7,12 @@
     <string name="forest">Forest</string>
     <string name="profile">Profile</string>
 
-    <!-- Login Screen -->
-    <string name="rbEmail">Login with Email</string>
+    <string name="login_with_email">Login with Email</string>
     <string name="rbUsername">Login with Username</string>
     <string name="etIdentifier">Email</string>
-    <string name="etPassword">Password</string>
-    <string name="btnSignIn">Sign In</string>
-    <string name="btnSignUp">Sign Up</string>
+    <string name="lgsifretext">Password</string>
+    <string name="lggirisbt">Sign In</string>
+    <string name="lgkayitbt">Sign Up</string>
     <string name="login_failed">Login failed</string>
 
     <!-- Register Screen -->
@@ -31,7 +29,6 @@
     <string name="menuStatistics">Statistics</string>
     <string name="menuRozet">Badges</string>
     <string name="menuSettings">Settings</string>
-    <string name="menuUser">Profile</string>
 
     <!-- Language -->
     <string name="language_updated">Language updated</string>
@@ -42,9 +39,10 @@
 
     <!-- Background & Access -->
     <string name="accestext">Select apps to restrict</string>
-    <string name="arkaplancolortext">Select background color</string>
-    <string name="buttonBackground">Background Color</string>
-    <string name="buttonAccess">Access List</string>
+    <string name="rgerisimtext">Select Apps to Block Access</string>
+    <string name="rgarkaplantext">Select Background Color</string>
+    <string name="stbackcolor">Background Color</string>
+    <string name="sterisimlist">Access List</string>
 
     <!-- Sound -->
     <string name="buttonSound">Sound</string>
@@ -60,42 +58,51 @@
     <string name="btnTreeType">Select Fish</string>
     <string name="focus_time_label">Focus Time (min)</string>
 
-    <!-- ProfileFragment -->
-    <string name="tvStats">Statistics</string>
-    <string name="btnLogout">Log Out</string>
+    <string name="prveri">Statistic Data</string>
+    <string name="prcikis">Log Out</string>
+    <string name="diltext">Dil seçiniz</string>
 
-    <!-- Badges -->
     <string name="new_badge_earned">You have earned new badge(s)!</string>
     <string name="rozetName">Sea Badge</string>
     <string name="rozetStatus">Earned</string>
-    <string name="badge_denizati">Seahorse Badge</string>
-    <string name="badge_yelkenli">Sailboat Badge</string>
-    <string name="badge_denizkabuk">Seashell Badge</string>
-    <string name="badge_inci">Pearl Badge</string>
-    <string name="badge_denizalti">Submarine Badge</string>
-    <string name="badge_dalga">Wave Badge</string>
-    <string name="badge_kaplumbaga">Turtle Badge</string>
-    <string name="badge_denizyildizi">Starfish Badge</string>
+    <string name="rozet_denizati">Seahorse Badge</string>
+    <string name="rozet_yelkenli">Sailboat Badge</string>
+    <string name="rozet_denizkabuk">Seashell Badge</string>
+    <string name="rozet_inci">Pearl Badge</string>
+    <string name="rozet_denizalti">Submarine Badge</string>
+    <string name="rozet_dalga">Wave Badge</string>
+    <string name="rozet_kaplumbaga">Turtle Badge</string>
+    <string name="rozet_denizyildizi">Starfish Badge</string>
     <string name="badge_earned">Earned</string>
     <string name="badge_not_earned">Not Earned</string>
 
-    <!-- Fish Types -->
-    <string name="fish_astronot">Astronaut Fish</string>
-    <string name="fish_palyaco">Clown Fish</string>
-    <string name="fish_diskus">Discus Fish</string>
-    <string name="fish_japon">Japanese Fish</string>
-    <string name="fish_moli">Molly Fish</string>
-    <string name="fish_melek">Angel Fish</string>
-    <string name="fish_beta">Betta Fish</string>
-    <string name="fish_papagan">Parrot Fish</string>
+    <string name="astronot_balik">Astronaut</string>
+    <string name="palyaco_balik">Clown</string>
+    <string name="diskus_balik">Discus</string>
+    <string name="japon_balik">Japanese</string>
+    <string name="moli_balik">Molly</string>
+    <string name="melek_balik">Angelfish</string>
+    <string name="beta_balik">Betta</string>
+    <string name="papagan_balik">Parrot</string>
+
 
     <string name="motivation_1">Every new day is a new beginning.</string>
     <string name="motivation_2">Use today to get one step closer to your dreams.</string>
-    <string name="motivation_3">Small steps bring big changes.</string>
+    <string name="motivation_3">Small steps lead to big changes.</string>
     <string name="motivation_4">Now is the best time to start.</string>
     <string name="motivation_5">Focus today, be proud tomorrow.</string>
     <string name="motivation_6">Just keep trying.</string>
     <string name="motivation_7">Consistency brings success.</string>
     <string name="motivation_8">You can do it!</string>
+
+    <string name="stGun">Day</string>
+    <string name="stHafta">Week</string>
+    <string name="stAy">Month</string>
+    <string name="stYıl">Year</string>
+    <string name="lgemail">Login with Email</string>
+    <string name="lgusername">Login with Username</string>
+    <string name="lgemailtext">Email</string>
+    <string name="prname">Username</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

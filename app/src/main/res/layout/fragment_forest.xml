@@ -25,7 +25,7 @@
             android:id="@+id/menuStatistics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="İstatistikler"
+            android:text="@string/fristatis"
             android:textSize="18sp"
             android:layout_marginStart="16dp" />
     </LinearLayout>
@@ -51,7 +51,7 @@
             android:id="@+id/menuRozet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rozetler"
+            android:text="@string/frrozet"
             android:textSize="18sp"
             android:layout_marginStart="16dp" />
     </LinearLayout>
@@ -76,7 +76,7 @@
             android:id="@+id/menuSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ayarlar"
+            android:text="@string/frAyarlar"
             android:textSize="18sp"
             android:layout_marginStart="16dp" />
     </LinearLayout>
@@ -101,7 +101,7 @@
             android:id="@+id/menuUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profil"
+            android:text="@string/frUser"
             android:textSize="18sp"
             android:layout_marginStart="16dp" />
     </LinearLayout>

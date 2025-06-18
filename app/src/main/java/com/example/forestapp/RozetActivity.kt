@@ -1,5 +1,6 @@
 package com.example.forestapp
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.forestapp.databinding.ActivityRozetBinding
 import com.example.forestapp.repository.UserRepository
 import com.example.forestapp.util.SharedPreferencesUtils
+import android.view.View
 
 class RozetActivity : AppCompatActivity() {
 
@@ -17,8 +19,8 @@ class RozetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRozetBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        SharedPreferencesUtils.applySavedLanguage(this)
-        SharedPreferencesUtils.applySavedBackgroundColor(this)
+        val rootView: View = findViewById(android.R.id.content)
+        SharedPreferencesUtils.applySavedBackgroundColor(this, rootView)
 
         val userId = SharedPreferencesUtils.getUserId(this)
         userRepo.getUserById(userId) { user ->
@@ -42,5 +44,10 @@ class RozetActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    override fun attachBaseContext(newBase: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(newBase)
+        val contextWithLocale = LanguageHelper.setLocale(newBase, lang)
+        super.attachBaseContext(contextWithLocale)
     }
 }

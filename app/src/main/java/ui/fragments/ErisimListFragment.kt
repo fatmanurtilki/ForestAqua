@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.forestapp.R
 import com.example.forestapp.databinding.FragmentErisimlistBinding
 import com.example.forestapp.util.SharedPreferencesUtils
+import com.example.forestapp.LanguageHelper
 
 class ErisimListFragment : Fragment() {
 
@@ -31,7 +32,7 @@ class ErisimListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        applyBackgroundColor()
+        applySavedBackgroundColor()
 
         binding.backButton.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -60,7 +61,7 @@ class ErisimListFragment : Fragment() {
         sharedPrefs.edit().putStringSet("blocked_apps", selected).apply()
     }
 
-    private fun applyBackgroundColor() {
+    private fun applySavedBackgroundColor() {
         val colorName = SharedPreferencesUtils.getBackgroundColor(requireContext())
         val colorResId = when (colorName) {
             "gereken_pembe" -> R.color.gereken_pembe
@@ -73,5 +74,9 @@ class ErisimListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    override fun onAttach(context: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(context)
+        super.onAttach(LanguageHelper.setLocale(context, lang))
     }
 }

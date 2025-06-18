@@ -1,5 +1,6 @@
 package ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -12,6 +13,7 @@ import com.example.forestapp.R
 import com.example.forestapp.model.User
 import com.example.forestapp.repository.UserRepository
 import com.example.forestapp.util.SharedPreferencesUtils
+import com.example.forestapp.LanguageHelper
 
 class ProfileFragment : Fragment() {
 
@@ -22,6 +24,8 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        applyBackgroundColor(view)
 
         tvName = view.findViewById(R.id.tvName)
         tvStats = view.findViewById(R.id.tvStats)
@@ -58,5 +62,9 @@ class ProfileFragment : Fragment() {
             else -> R.color.gereken_mavi
         }
         view.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
+    }
+    override fun onAttach(context: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(context)
+        super.onAttach(LanguageHelper.setLocale(context, lang))
     }
 }

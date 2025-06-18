@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Ad Soyad"
+                android:hint="@string/rgad_soyad"
                 android:background="@android:drawable/editbox_background"
                 android:padding="10dp" />
         </LinearLayout>
@@ -56,7 +56,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Kullanıcı Adı"
+                android:hint="rgkullaniciad"
                 android:background="@android:drawable/editbox_background"
                 android:padding="10dp" />
         </LinearLayout>
@@ -78,7 +78,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Email"
+                android:hint="@string/rgEmail"
                 android:inputType="textEmailAddress"
                 android:background="@android:drawable/editbox_background"
                 android:padding="10dp" />
@@ -101,7 +101,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Şifre"
+                android:hint="@string/rgsifre"
                 android:inputType="textPassword"
                 android:background="@android:drawable/editbox_background"
                 android:padding="10dp" />
@@ -131,7 +131,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kayıt Ol"
+                    android:text="@string/rgkayitol"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -157,7 +157,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Geri Dön"
+                android:text="@string/rgGeri"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />

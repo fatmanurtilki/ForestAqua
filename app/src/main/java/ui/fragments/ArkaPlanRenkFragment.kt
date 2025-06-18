@@ -15,10 +15,6 @@ class ArkaPlanRenkFragment : Fragment() {
     private var _binding: FragmentArkaplanrenkBinding? = null
     private val binding get() = _binding!!
 
-    override fun onAttach(context: Context) {
-        super.onAttach(LanguageHelper.setLocale(context, SharedPreferencesUtils.getAppLanguage(context)))
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,19 +33,20 @@ class ArkaPlanRenkFragment : Fragment() {
         }
 
         binding.colorMavi.setOnClickListener {
-            SharedPreferencesUtils.setBackgroundColor(requireContext(), "gereken_mavi")
-            applySavedBackgroundColor()
+            changeBackground("gereken_mavi")
         }
 
         binding.colorPembe.setOnClickListener {
-            SharedPreferencesUtils.setBackgroundColor(requireContext(), "gereken_pembe")
-            applySavedBackgroundColor()
+            changeBackground("gereken_pembe")
         }
 
         binding.colorSari.setOnClickListener {
-            SharedPreferencesUtils.setBackgroundColor(requireContext(), "gereken_sari")
-            applySavedBackgroundColor()
+            changeBackground("gereken_sari")
         }
+    }
+    private fun changeBackground(colorKey: String) {
+        SharedPreferencesUtils.setBackgroundColor(requireContext(), colorKey)
+        requireActivity().recreate()
     }
 
     private fun applySavedBackgroundColor() {
@@ -65,5 +62,9 @@ class ArkaPlanRenkFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    override fun onAttach(context: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(context)
+        super.onAttach(LanguageHelper.setLocale(context, lang))
     }
 }

@@ -1,14 +1,14 @@
 package com.example.forestapp
 
 object TreeType {
-    const val ASTRONOT = "Astronot"
-    const val PALYACO = "Palayaco"
-    const val DISKUS = "Diskus"
-    const val JAPON = "Japon"
-    const val MOLI = "Moli"
-    const val MELEK = "Melek"
-    const val BETA  = "Beta"
-    const val PAPAGAN = "Papagan"
+    const val ASTRONOT = "@string/astronot_balik"
+    const val PALYACO = "@string/palyaco_balik"
+    const val DISKUS = "@string/diskus_balik"
+    const val JAPON = "@string/japon_balik"
+    const val MOLI = "@string/moli_balik"
+    const val MELEK = "@string/melek_balik"
+    const val BETA = "@string/beta_balik"
+    const val PAPAGAN = "@string/papagan_balik"
 
     fun getAllTypes(): List<String> = listOf(ASTRONOT, PALYACO, DISKUS, JAPON, MOLI, MELEK, BETA, PAPAGAN)
 

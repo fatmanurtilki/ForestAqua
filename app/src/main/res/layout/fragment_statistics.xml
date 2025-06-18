@@ -20,7 +20,7 @@
             android:minHeight="48dp"
             android:minWidth="48dp"
             android:padding="8dp"
-            android:text="Gün"
+            android:text="@string/stGun"
             android:checked="true" />
 
         <RadioButton
@@ -30,7 +30,7 @@
             android:minHeight="48dp"
             android:minWidth="48dp"
             android:padding="8dp"
-            android:text="Hafta" />
+            android:text="@string/stHafta" />
 
         <RadioButton
             android:id="@+id/rbMonth"
@@ -39,8 +39,7 @@
             android:minHeight="48dp"
             android:minWidth="48dp"
             android:padding="8dp"
-            android:text="Ay" />
-
+            android:text="@string/stAy" />
         <RadioButton
             android:id="@+id/rbYear"
             android:layout_width="wrap_content"
@@ -48,7 +47,7 @@
             android:minHeight="48dp"
             android:minWidth="48dp"
             android:padding="8dp"
-            android:text="Yıl" />
+            android:text="@string/stYıl" />
     </RadioGroup>
 
     <FrameLayout

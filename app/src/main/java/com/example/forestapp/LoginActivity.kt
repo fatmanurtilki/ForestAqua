@@ -1,7 +1,9 @@
 package com.example.forestapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.forestapp.repository.UserRepository
@@ -9,14 +11,16 @@ import com.example.forestapp.util.SharedPreferencesUtils
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var auth: FirebaseAuth
     private val userRepo = UserRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        SharedPreferencesUtils.applySavedLanguage(this)
-        SharedPreferencesUtils.applySavedBackgroundColor(this)
+
+        val rootView: View = findViewById(android.R.id.content)
+        SharedPreferencesUtils.applySavedBackgroundColor(this, rootView)
 
         auth = FirebaseAuth.getInstance()
 
@@ -30,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
             val password = etPassword.text.toString()
 
             if (email.isBlank() || password.isBlank()) {
-                Toast.makeText(this, "Tüm alanları doldurun", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -43,7 +47,11 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 }
                 .addOnFailureListener {
-                    Toast.makeText(this, "Giriş başarısız: ${it.localizedMessage}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.login_failed) + ": ${it.localizedMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
         }
 
@@ -51,4 +59,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
+    override fun attachBaseContext(newBase: Context) {
+        val lang = SharedPreferencesUtils.getAppLanguage(newBase)
+        val contextWithLocale = LanguageHelper.setLocale(newBase, lang)
+        super.attachBaseContext(contextWithLocale)
+    }
+
 }
